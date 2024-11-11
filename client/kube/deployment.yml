@@ -21,21 +21,21 @@ spec:
       containers:
         - name: demo-app
           image: ${DOCKERHUB_USERNAME}/telehealth-client:${IMAGE_TAG}
-          env:
-            - name: VITE_API_URL
-              value: "https://telehealth.duckdns.org"
+          # env:
+          #   - name: VITE_API_URL
+          #     value: "https://telehealth.duckdns.org"
           ports:
             - containerPort: 80
-          # readinessProbe:
-          #   httpGet:
-          #     path: /index.html
-          #     port: 80
-          #   initialDelaySeconds: 5
-          #   periodSeconds: 10
-          #   timeoutSeconds: 3
-          # livenessProbe:
-          #   httpGet:
-          #     path: /index.html
-          #     port: 80
-          #   initialDelaySeconds: 15
-          #   periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /index.html
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20

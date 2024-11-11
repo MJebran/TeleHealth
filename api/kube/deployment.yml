@@ -24,7 +24,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: POSTGRES_HOST
-              value: "telehealth-api-db-service"
+              value: "telehealth-db-service"
             - name: POSTGRES_USER 
               value: "${POSTGRES_USER}"
             - name: POSTGRES_PASSWORD

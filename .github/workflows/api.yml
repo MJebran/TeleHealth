@@ -40,5 +40,6 @@ jobs:
           # kubectl create configmap postgres-schema --from-file=api/schema.sql --namespace=telehealth
 
           for file in api/kube/*; do 
+              echo "Applying configuration from $file"
               cat "$file" | envsubst | kubectl apply -f -; 
           done

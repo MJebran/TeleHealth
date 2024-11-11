@@ -1,0 +1,9 @@
+build/
+dist/
+node_modules/
+README.md
+docker-compose.yml
+.gitignore
+DockerFile
+kube/
+.github/

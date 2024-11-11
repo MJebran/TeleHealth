@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Protest+Guerrilla&display=swap');
+$font-family-base: "Roboto Mono";
+//https://fonts.google.com/selection/embed
+//https://www.fontspace.com/star-jedi-font-f9641
+// Custom Bootstrap theme colors
+$primary: #766e07;
+$info: #19b7d0;
+$success: #065430;
+$warning: #2c2753;
+$danger: #a86b10;
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/bootstrap';
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+
+// Styling the heading
+h1.item-management {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  animation: itemManagementAnimation 4s ease-in-out infinite;
+}
+
+// Button styles
+.btn {
+  font-size: 1.1rem;
+  margin-right: 0.5rem;
+}
+
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+}
+
+.btn-outline-secondary {
+  border-color: $primary;
+  color: $primary;
+  &:hover {
+    background-color: $primary;
+    color: white;
+  }
+}
+
+// Form group spacing
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+}
+
+.modal-content {
+  padding: 1.5rem;
+}
+
+
+.toast-success{
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: green;
+  background-color: #c2c1bb;
+  font-size: 20px;
+}
+
+.toast-error{
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: rgb(223, 24, 10);
+  background-color: #c2c1bb;
+  font-size: 20px;
+  animation: fade-in 0.1s;
+}
+
+.toast-warning{
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: rgb(129, 117, 5);
+  background-color: #c2c1bb;
+  font-size: 20px;
+}
+
+.protest-guerrilla-regular {
+  font-family: "Protest Guerrilla", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); 
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); 
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px); 
+  }
+}
+
+
+.toast-success, .toast-error, .toast-warning {
+  animation: fade-in 0.5s ease-in-out; 
+}
+
+
+.toast-exit {
+  animation: fade-out 0.5s ease-in-out forwards; 
+}
+
+.navbar-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: $primary;
+  z-index: 1030;
+
+  .navbar-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    i {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .navbar-bottom {
+    display: none; // Hide bottom navbar on desktop
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-expand-lg {
+    display: none; // Hide top navbar on mobile
+  }
+}
+
+
+// Reduced motion for accessibility
+@media (prefers-reduced-motion: reduce) {
+  h1.item-management {
+    animation: none;
+  }
+}

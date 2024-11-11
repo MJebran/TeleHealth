@@ -1,0 +1,54 @@
+# services:
+#   client:
+#     image: node:latest
+#     environment:
+#       - VITE_API_URL=http://mustafa_api_for_client:8080
+#     container_name: mustafa_client
+#     volumes:
+#       - .:/app
+#     working_dir: /app
+#     # build:
+#     #   context: .
+#     ports:
+#       # - "3040:3040" 
+#       - "5173:5173"
+#     command: sh -c "npm install && npm run dev -- --host"
+
+#   api:
+#     container_name: mustafa_api_for_client
+#     image: mjebran/inventory-api:latest
+#     restart: always
+#     ports:
+#       - 3030:8080
+#     # volumes:
+#     #   - api-data
+
+
+
+services:
+  client:
+    image: node:latest
+    environment:
+      - VITE_API_URL=http://mustafa_api_for_client:8080
+    container_name: mustafa_client
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - mustafa-network
+
+  api:
+    container_name: mustafa_api_for_client
+    image: mjebran/inventory-api:latest
+    restart: always
+    ports:
+      - 3030:8080
+    networks:
+      - mustafa-network
+
+networks:
+  mustafa-network:
+    driver: bridge

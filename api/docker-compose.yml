@@ -1,0 +1,13 @@
+services:
+  api:
+    container_name: mustafa_api
+    restart: always
+    build:
+      context: .
+    ports:
+      - 7070:8080
+    volumes:
+      - images:/app/images
+
+volumes:
+  images:

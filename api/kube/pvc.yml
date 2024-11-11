@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: telehealth-api
+  namespace: telehealth-api-db
   name: demo-api-pvc
 spec:
   accessModes:

@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 jobs:
   build-and-push:
-    runs-on: [self-hosted, telehealth]
+    runs-on: [self-hosted]
 
     steps:
       - name: Checkout code

@@ -29,7 +29,7 @@ spec:
             - name: POSTGRES_PASSWORD
               value: ${POSTGRES_PASSWORD}
             - name: POSTGRES_HOST
-              value: "telehealth-db-svc"
+              value: telehealth-db-svc
             - name: POSTGRES_PORT
               value: "5432"
           ports:

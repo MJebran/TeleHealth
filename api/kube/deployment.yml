@@ -28,7 +28,7 @@ spec:
             - name: POSTGRES_USER
               value: ${POSTGRES_USER}
             - name: POSTGRES_PASSWORD
-              value: ${POSTGRES_PASSWORD}
+              value: "${POSTGRES_PASSWORD}"
             - name: POSTGRES_HOST
               value: telehealth-db-svc
             - name: POSTGRES_PORT

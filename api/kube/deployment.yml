@@ -31,7 +31,7 @@ spec:
             - name: POSTGRES_HOST
               value: telehealth-db-svc
             - name: POSTGRES_PORT
-              value: 5432
+              value: "5432"
           ports:
             - containerPort: 8080
           readinessProbe:

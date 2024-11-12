@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-ENV VITE_API_URL http://api.telehealth.duckdns.org/api/items
+ENV VITE_API_URL http://api.telehealth.duckdns.org/api
 RUN npm run build 
 
 FROM nginx:alpine

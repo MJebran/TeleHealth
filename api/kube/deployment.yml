@@ -20,7 +20,8 @@ spec:
     spec:
       containers:
         - name: telehealth-api
-          image: ${DOCKERHUB_USERNAME}/telehealth_api:${IMAGE_TAG}
+          # image: ${DOCKERHUB_USERNAME}/telehealth_api:${IMAGE_TAG}
+          image: ${DOCKERHUB_USERNAME}/telehealth_api:latest
           env:
             - name: POSTGRES_DB
               value: ${POSTGRES_DB}

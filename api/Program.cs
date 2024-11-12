@@ -34,7 +34,7 @@ app.UseCors("AllowReactClient");
 app.MapGet("/", () => "Hello World!");
 
 // add health check endpoint 
-app.MapHealthChecks("/health");
+app.MapHealthChecks("api/health");
 
 app.MapControllers(); 
 app.Run();

@@ -1,80 +1,69 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: telehealth
   name: telehealth-db-pvc
+  namespace: telehealth
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
+  storageClassName: nfs-client
 
 ---
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    namespace: telehealth
-    name: telehealth-db-deployment
-    labels:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telehealth-db-deployment
+  namespace: telehealth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
       app: telehealth-db
-  spec:
-    replicas: 1
-    strategy:
-      type: Recreate
-    selector:
-      matchLabels:
+  template:
+    metadata:
+      labels:
         app: telehealth-db
-    template:
-      metadata:
-        labels:
-          app: telehealth-db
-      spec:
-        containers:
+    spec:
+      containers:
         - name: telehealth-db
           image: postgres
           ports:
-          - containerPort: 5432
+            - containerPort: 5432
           env:
-          - name: POSTGRES_USER 
-            value: ${POSTGRES_USER}
-          - name: POSTGRES_PASSWORD
-            value: "${POSTGRES_PASSWORD}"
-          - name: POSTGRES_DB
-            value: "${POSTGRES_DB}"
+            - name: POSTGRES_DB
+              value: "${POSTGRES_DB}"
+            - name: POSTGRES_USER
+              value: "${POSTGRES_USER}"
+            - name: POSTGRES_PASSWORD
+              value: "${POSTGRES_PASSWORD}"
           volumeMounts:
-          - name: postgresstorage
-            mountPath: /var/lib/postgresql/data
-          - name: init-script
-            mountPath: /docker-entrypoint-initdb.d
-          readinessProbe:
-            exec:
-              command:
-              - pg_isready
-              - "-U"
-              - postgres
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
-        volumes:
-        - name: postgresstorage
-          persistentVolumeClaim: 
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
+            - mountPath: /docker-entrypoint-initdb.d
+              name: schema-volume
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
             claimName: telehealth-db-pvc
-        - name: init-script
+        - name: schema-volume
           configMap:
-            name: telehealth-api-postgres-init
+            name: postgres-schema
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
+  name: telehealth-db-svc
   namespace: telehealth
-  name: telehealth-db-service
 spec:
   type: ClusterIP
-  selector:
-    app: telehealth-api-db
   ports:
     - port: 5432
       targetPort: 5432
+  selector:
+    app: telehealth-db

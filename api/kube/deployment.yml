@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-app
+  name: telehealth-api
   namespace: telehealth
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-app
+      app: telehealth-api
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -16,21 +16,20 @@ spec:
   template:
     metadata:
       labels:
-        app: demo-app
+        app: telehealth-api
     spec:
       containers:
-        - name: demo-app
-          image: ${DOCKERHUB_USERNAME}/telehealth-api:${IMAGE_TAG}
-          imagePullPolicy: Always
+        - name: telehealth-api
+          image: ${DOCKERHUB_USERNAME}/telehealth_api:${IMAGE_TAG}
           env:
-            - name: POSTGRES_HOST
-              value: "telehealth-db-service"
-            - name: POSTGRES_USER 
-              value: "${POSTGRES_USER}"
-            - name: POSTGRES_PASSWORD
-              value: "${POSTGRES_PASSWORD}"
             - name: POSTGRES_DB
-              value: "${POSTGRES_DB}"
+              value: ${POSTGRES_DB}
+            - name: POSTGRES_USER
+              value: ${POSTGRES_USER}
+            - name: POSTGRES_PASSWORD
+              value: ${POSTGRES_PASSWORD}
+            - name: POSTGRES_HOST
+              value: telehealth-db-svc
             - name: POSTGRES_PORT
               value: "5432"
           ports:

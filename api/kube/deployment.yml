@@ -35,16 +35,16 @@ spec:
               value: "5432"
           ports:
             - containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: /api/health
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            timeoutSeconds: 3
-          livenessProbe:
-            httpGet:
-              path: /api/health
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 20
+          # readinessProbe:
+          #   httpGet:
+          #     path: /api/health
+          #     port: 8080
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
+          #   timeoutSeconds: 3
+          # livenessProbe:
+          #   httpGet:
+          #     path: /api/health
+          #     port: 8080
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 20

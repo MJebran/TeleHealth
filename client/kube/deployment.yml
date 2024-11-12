@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-app
+  name: telehealth-client
   namespace: telehealth
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-app
+      app: telehealth-client
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -16,26 +16,23 @@ spec:
   template:
     metadata:
       labels:
-        app: demo-app
+        app: telehealth-client
     spec:
       containers:
-        - name: demo-app
-          image: ${DOCKERHUB_USERNAME}/telehealth-client:${IMAGE_TAG}
-          # env:
-          #   - name: VITE_API_URL
-          #     value: "https://telehealth.duckdns.org"
+        - name: telehealth-client
+          image: ${DOCKERHUB_USERNAME}/telehealth_client:${IMAGE_TAG}
           ports:
             - containerPort: 80
           readinessProbe:
             httpGet:
-              path: /index.html
+              path: /
               port: 80
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 3
           livenessProbe:
             httpGet:
-              path: /index.html
+              path: /
               port: 80
             initialDelaySeconds: 15
             periodSeconds: 20

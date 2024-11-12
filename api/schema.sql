@@ -1,3 +1,19 @@
+--Drop Files Table (depends on Cases)
+DROP TABLE IF EXISTS Files;
+
+-- Drop Responses Table (depends on Cases and Users)
+DROP TABLE IF EXISTS Responses;
+
+-- Drop Cases Table (depends on Users)
+DROP TABLE IF EXISTS Cases;
+
+-- Drop Users Table (depends on Roles)
+DROP TABLE IF EXISTS Users;
+
+-- Drop Roles Table (no dependencies)
+DROP TABLE IF EXISTS Roles;
+
+
 -- Create Roles Table
 CREATE TABLE Roles (
     id SERIAL PRIMARY KEY,
@@ -45,21 +61,3 @@ CREATE TABLE Files (
     uploaded_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (case_id) REFERENCES Cases(id) ON DELETE CASCADE
 );
-
-
-
-
--- Drop Files Table (depends on Cases)
--- DROP TABLE IF EXISTS Files;
-
--- -- Drop Responses Table (depends on Cases and Users)
--- DROP TABLE IF EXISTS Responses;
-
--- -- Drop Cases Table (depends on Users)
--- DROP TABLE IF EXISTS Cases;
-
--- -- Drop Users Table (depends on Roles)
--- DROP TABLE IF EXISTS Users;
-
--- -- Drop Roles Table (no dependencies)
--- DROP TABLE IF EXISTS Roles;

@@ -60,7 +60,7 @@ spec:
         volumes:
         - name: postgresstorage
           persistentVolumeClaim: 
-            claimName: telehealth-api-db-pvc
+            claimName: telehealth-db-pvc
         - name: init-script
           configMap:
             name: telehealth-api-postgres-init

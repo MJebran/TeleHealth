@@ -41,6 +41,8 @@ jobs:
           # kubectl delete pvc telehealth-db-pvc -n telehealth --ignore-not-found=true
 
           for file in api/kube/*; do 
+              echo "Preview of configuration from $file after envsubst:"
+              cat "$file" | envsubst
               echo "Applying configuration from $file"
-              cat "$file" | envsubst | kubectl apply -f -; 
+              cat "$file" | envsubst | kubectl apply -f -;
           done

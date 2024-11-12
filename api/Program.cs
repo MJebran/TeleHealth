@@ -32,5 +32,9 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowReactClient");
 
 app.MapGet("/", () => "Hello World!");
+
+// add health check endpoint 
+app.MapHealthChecks("/health");
+
 app.MapControllers(); 
 app.Run();

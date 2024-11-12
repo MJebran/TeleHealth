@@ -8,7 +8,5 @@ export default defineConfig({
     proxy: {
       "/api": "http://localhost:7070",//if I need to do locally 5150, and 7070 for kube
     },
-    // host: true,
-    // port: 3040,
   },
 });

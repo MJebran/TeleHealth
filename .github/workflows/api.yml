@@ -29,11 +29,11 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           export PATH=$PATH:~.nix-profile/bin:/nix/var/nix/profiles/default/bin
-          export IMAGE_TAG=${{ github.run_number }}
-          export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
-          export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-          export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
-          export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+          export IMAGE_TAG="${{ github.run_number }}"
+          export DOCKERHUB_USERNAME="${{ secrets.DOCKERHUB_USERNAME }}"
+          export POSTGRES_USER="${{ secrets.POSTGRES_USER }}"
+          export POSTGRES_DB="${{ secrets.POSTGRES_DB }}"
+          export POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}"
 
           kubectl get namespace telehealth || kubectl create namespace telehealth
           # kubectl delete configmap postgres-schema --namespace=telehealth || true

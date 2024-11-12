@@ -38,7 +38,7 @@ jobs:
           kubectl get namespace telehealth || kubectl create namespace telehealth
           # kubectl delete configmap postgres-schema --namespace=telehealth || true
           # kubectl create configmap postgres-schema --from-file=api/schema.sql --namespace=telehealth
-          kubectl delete pvc telehealth-db-pvc -n telehealth --ignore-not-found=true
+          # kubectl delete pvc telehealth-db-pvc -n telehealth --ignore-not-found=true
 
           for file in api/kube/*; do 
               echo "Preview of configuration from $file after envsubst:"

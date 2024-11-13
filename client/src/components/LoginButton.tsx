@@ -32,7 +32,7 @@ export function LoginButton() {
         console.log(auth.user);
         return (
         <div>
-            Hello {auth.user?.profile.sub}{" "}
+            Hello {auth.user?.profile.family_name}{" "}
             <button onClick={() => void auth.removeUser()}>Log out</button>
         </div>
         );

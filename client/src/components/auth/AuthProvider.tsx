@@ -5,8 +5,8 @@
 // const oidcConfig: AuthProviderProps = {
 //   authority: "https://auth.snowse.duckdns.org/realms/advanced-frontend/",
 //   client_id: "mustafa-client",
-//   // redirect_uri: "http://localhost:3000/", // development
-//   redirect_uri: "https://directory-mustafa.duckdns.org/", // production
+//   redirect_uri: "http://localhost:5174/", // development
+//   // redirect_uri: "https://telehealth.duckdns.org/", // production
 //   // ...
 //   onSigninCallback: async (user) => {
 //     console.log("User signed in");

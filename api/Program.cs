@@ -1,8 +1,6 @@
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-
 using TeleHealthAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,8 +13,13 @@ builder.Services.AddControllers();
 // Register Health Checks service
 builder.Services.AddHealthChecks();
 
+
+// For manually created DbContext (used in background tasks like notifications or chat)
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+// builder.Services.AddScoped<JwtService>();
 
 builder.Services.AddAuthentication()
     .AddJwtBearer(options =>
@@ -54,13 +57,13 @@ if (app.Environment.IsDevelopment())
 // app.UseHttpsRedirection();
 app.UseCors("AllowReactClient");
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Welcome to API!, Please use /api/health to check the health of the API. or /swagger to view the API documentation.");
 
-// Add Health Check endpoint
+
+// app.UseHttpsRedirection();
 app.MapHealthChecks("api/health");
-
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors("AllowReactClient");
-app.MapControllers(); 
+app.MapControllers();
 app.Run();

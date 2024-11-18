@@ -1,17 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
-namespace TeleHealthAPI.Models;
-
-public partial class File
+namespace TeleHealthAPI.Models
 {
-    public int Id { get; set; }
+    public partial class File
+    {
+        [Key]
+        public int Id { get; set; }
 
-    public int CaseId { get; set; }
+        [Required]
+        [ForeignKey("Case")]
+        public int CaseId { get; set; }
 
-    public string FilePath { get; set; } = null!;
+        [Required]
+        // [MaxLength(255)]
+        public string FilePath { get; set; } = null!;
 
-    public DateTime? UploadedAt { get; set; }
+        // [MaxLength(50)]
+        public string? FileType { get; set; }
 
-    public virtual Case Case { get; set; } = null!;
+        [DataType(DataType.DateTime)]
+        public DateTime? UploadedAt { get; set; }
+
+        [JsonIgnore]
+        public virtual Case Case { get; set; } = null!;
+    }
 }

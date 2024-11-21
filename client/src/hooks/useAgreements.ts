@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Agreement } from '../types/agreement';
-import { getAgreements, addAgreement, editAgreement, deleteAgreement } from '../api/agreementApi';
+import { getAgreements, addAgreement, editAgreement, deleteAgreement } from '../services/agreementService';
 
 export const useAgreements = () => {
   const [agreements, setAgreements] = useState<Agreement[]>([]);

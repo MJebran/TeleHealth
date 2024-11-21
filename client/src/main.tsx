@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { AuthProvider, AuthProviderProps } from 'react-oidc-context';
-// import { LoginButton } from './components/LoginButton.tsx';
+import { LoginButton } from './components/LoginButton.tsx';
 
 
 const oidcConfig: AuthProviderProps = {
@@ -31,7 +31,7 @@ const oidcConfig: AuthProviderProps = {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider {...oidcConfig}>
-      {/* <LoginButton /> */}
+      <LoginButton />
     <App />
     </AuthProvider>
   </StrictMode>,

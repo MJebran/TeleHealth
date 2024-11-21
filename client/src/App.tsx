@@ -17,6 +17,7 @@ import {
 import toast from "react-hot-toast";
 import "./Style/style.scss";
 import { AuthRequired } from "./components/auth/AuthRequired";
+import RolesPage from "./pages/RolesPage";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -52,6 +53,7 @@ const App: React.FC = () => {
                   }
                 />
                 <Route path="/agreements" element={<AgreementsPage />} /> {/* New Route */}
+                <Route path="/roles" element={<RolesPage />} />
               </Routes>
             </ErrorBoundary>
           </Router>

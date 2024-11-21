@@ -57,6 +57,7 @@ const Navbar = () => {
           {isMobile && <span>About</span>}
         </Link>
         <Link to="/agreements">Agreements</Link>
+        <Link to="/roles">Roles</Link>
       </div>
     </nav>
   );

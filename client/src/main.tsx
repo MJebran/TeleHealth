@@ -31,7 +31,7 @@ const oidcConfig: AuthProviderProps = {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider {...oidcConfig}>
-      <LoginButton />
+      {/* <LoginButton /> */}
     <App />
     </AuthProvider>
   </StrictMode>,

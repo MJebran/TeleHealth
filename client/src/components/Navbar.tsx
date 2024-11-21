@@ -56,6 +56,7 @@ const Navbar = () => {
           <i className="bi bi-info-circle-fill" />
           {isMobile && <span>About</span>}
         </Link>
+        <Link to="/agreements">Agreements</Link>
       </div>
     </nav>
   );

@@ -4,6 +4,7 @@ import MainPage from "./components/MainPage";
 import AboutPage from "./components/AboutPage";
 import ContactPage from "./components/ContactPage";
 import DetailPage from "./components/DetailPage";
+import AgreementsPage from "./pages/AgreementsPage"; // Import AgreementsPage
 import ErrorFallback from "./components/ErrorFallback";
 import { ErrorBoundary } from "react-error-boundary";
 import { InventoryProvider } from "./context/InventoryContext";
@@ -50,6 +51,7 @@ const App: React.FC = () => {
                     </AuthRequired>
                   }
                 />
+                <Route path="/agreements" element={<AgreementsPage />} /> {/* New Route */}
               </Routes>
             </ErrorBoundary>
           </Router>

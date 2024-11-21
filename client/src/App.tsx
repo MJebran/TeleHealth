@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import MainPage from "./components/MainPage";
+// import MainPage from "./components/MainPage";
 import AboutPage from "./components/AboutPage";
 import ContactPage from "./components/ContactPage";
-import DetailPage from "./components/DetailPage";
+// import DetailPage from "./components/DetailPage";
 import AgreementsPage from "./pages/AgreementsPage"; // Import AgreementsPage
 import ErrorFallback from "./components/ErrorFallback";
 import { ErrorBoundary } from "react-error-boundary";
-import { InventoryProvider } from "./context/InventoryContext";
+// import { InventoryProvider } from "./context/InventoryContext";
 import { ToastProvider } from "./context/ToastProvider";
 import {
   QueryClient,
@@ -33,16 +33,16 @@ const App: React.FC = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <InventoryProvider>
+      {/* <InventoryProvider> */}
         <ToastProvider>
           <Router>
             <Navbar />
             <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
               <Routes>
-                <Route path="/" element={<MainPage />} />
+                {/* <Route path="/" element={<MainPage />} /> */}
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/contact" element={<ContactPage />} />
-                <Route path="/item/:id" element={<DetailPage />} />
+                {/* <Route path="/item/:id" element={<DetailPage />} /> */}
                 <Route
                   path="/about/:id"
                   element={
@@ -56,7 +56,7 @@ const App: React.FC = () => {
             </ErrorBoundary>
           </Router>
         </ToastProvider>
-      </InventoryProvider>
+      {/* </InventoryProvider> */}
     </QueryClientProvider>
   );
 };

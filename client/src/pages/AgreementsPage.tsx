@@ -27,7 +27,7 @@ const AgreementsPage: React.FC = () => {
             backgroundPosition: "center",
           }}
         >
-          <h2 className="text-center p-2" style={{ fontFamily: "Mariupol, sans-serif" }}>
+          <h2 className="text-center mb-0" style={{ fontFamily: "Mariupol, sans-serif" }}>
             Agreements
           </h2>
         </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5071/api",
+  baseURL: import.meta.env.DEV ? "http://localhost:5071/api" : "http://api.telehealth.duckdns.org/api",
   headers: {
     "Content-Type": "application/json",
   },

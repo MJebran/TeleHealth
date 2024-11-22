@@ -43,6 +43,7 @@ const RoleList: React.FC = () => {
     toast.success("Role added successfully!");
   };
 
+  // this works but find a better way of doing this 
   const handleEditRole = async () => {
     if (selectedRole && selectedRole.roleName.trim()) {
       try {
@@ -128,7 +129,7 @@ const RoleList: React.FC = () => {
 
       <div className="text-center">
         <button
-          className="btn btn-primary w-100"
+          className="btn btn-primary"
           style={{
             maxWidth: "300px",
             borderRadius: "8px",

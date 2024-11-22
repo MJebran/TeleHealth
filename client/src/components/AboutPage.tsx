@@ -11,7 +11,7 @@ const AboutPage: React.FC = () => (
           backgroundPosition: "center",
         }}
       >
-        <h2 className="text-center p-2" style={{ fontFamily: "Mariupol, sans-serif" }}>TeleHealth</h2>
+        <h2 className="text-center mb-0" style={{ fontFamily: "Mariupol, sans-serif" }}>TeleHealth</h2>
       </div>
       <div className="card-body" style={{ backgroundColor: "#F7F8FD" }}> {/* Soft white background */}
         <p className="lead text-center mb-4" style={{ color: "#373D44", fontFamily: "Mariupol, sans-serif" }}> {/* Dark text for contrast */}

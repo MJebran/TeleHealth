@@ -8,7 +8,7 @@ import { LoginButton } from './components/LoginButton.tsx';
 const oidcConfig: AuthProviderProps = {
   authority: "https://auth.snowse-ts.duckdns.org/realms/mustafa/",
   client_id: "telehealth",
-  redirect_uri: "http://localhost:5173/",
+  redirect_uri: import.meta.env.DEV ? "http://localhost:5173/" : "https://telehealth.duckdns.org/",
   automaticSilentRenew: true, // Enables silent renew
   // loadUserInfo: true,   
   onSigninCallback: async (user) => {

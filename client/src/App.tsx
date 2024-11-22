@@ -1,13 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-// import MainPage from "./components/MainPage";
 import AboutPage from "./components/AboutPage";
 import ContactPage from "./components/ContactPage";
-// import DetailPage from "./components/DetailPage";
-import AgreementsPage from "./pages/AgreementsPage"; // Import AgreementsPage
+import AgreementsPage from "./pages/AgreementsPage";
 import ErrorFallback from "./components/ErrorFallback";
 import { ErrorBoundary } from "react-error-boundary";
-// import { InventoryProvider } from "./context/InventoryContext";
 import { ToastProvider } from "./context/ToastProvider";
 import {
   QueryClient,
@@ -34,16 +31,13 @@ const App: React.FC = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <InventoryProvider> */}
         <ToastProvider>
           <Router>
             <Navbar />
             <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
               <Routes>
-                {/* <Route path="/" element={<MainPage />} /> */}
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/contact" element={<ContactPage />} />
-                {/* <Route path="/item/:id" element={<DetailPage />} /> */}
                 <Route
                   path="/about/:id"
                   element={
@@ -52,13 +46,12 @@ const App: React.FC = () => {
                     </AuthRequired>
                   }
                 />
-                <Route path="/agreements" element={<AgreementsPage />} /> {/* New Route */}
+                <Route path="/agreements" element={<AgreementsPage />} /> 
                 <Route path="/roles" element={<RolesPage />} />
               </Routes>
             </ErrorBoundary>
           </Router>
         </ToastProvider>
-      {/* </InventoryProvider> */}
     </QueryClientProvider>
   );
 };

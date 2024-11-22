@@ -1,5 +1,3 @@
-// import React from "react";
-// import { useEffect } from "react";
 import { useAuth } from "react-oidc-context";
 
 export function LoginButton() {

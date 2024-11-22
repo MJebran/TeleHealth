@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useRoles } from "../../hooks/useRoles";
 import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+import axiosInstance from "../../services/axiosInstance";
 
 const RoleList: React.FC = () => {
   const { roles, addNewRole, removeRole, loading, error } = useRoles();
@@ -43,29 +45,30 @@ const RoleList: React.FC = () => {
     toast.success("Role added successfully!");
   };
 
-  // this works but find a better way of doing this 
   const handleEditRole = async () => {
     if (selectedRole && selectedRole.roleName.trim()) {
       try {
-        const response = await fetch(
-          `http://localhost:5071/api/Role/${selectedRole.id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(selectedRole),
-          }
+        const response = await axiosInstance.put(
+          `/Role/${selectedRole.id}`,
+          selectedRole
         );
 
-        if (!response.ok) {
-          throw new Error("Failed to update role");
+        // Check if the response is successful (optional as axios will throw on failure)
+        if (response.status === 200) {
+          toast.success("Role updated successfully!");
+          handleCloseDetailsModal();
         }
-
-        toast.success("Role updated successfully!");
-        handleCloseDetailsModal();
       } catch (error) {
-        toast.error("Failed to update role");
+        // Use the error response if available
+        if (axios.isAxiosError(error) && error.response) {
+          toast.error(
+            `Failed to update role: ${
+              error.response.data.message || error.response.statusText
+            }`
+          );
+        } else {
+          toast.error("Failed to update role");
+        }
         console.error(error);
       }
     } else {
@@ -86,7 +89,6 @@ const RoleList: React.FC = () => {
   return (
     <div className="container-sm py-3">
       <Toaster position="top-center" />
-      <h5 className="mb-4 text-start">Roles List</h5>
       <ul className="list-group mb-4">
         {roles.map((role) => (
           <li

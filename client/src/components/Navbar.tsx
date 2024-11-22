@@ -58,6 +58,7 @@ const Navbar = () => {
         </Link>
         <Link to="/agreements">Agreements</Link>
         <Link to="/roles">Roles</Link>
+        <Link to="/users">Users</Link>
       </div>
     </nav>
   );

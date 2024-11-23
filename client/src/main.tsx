@@ -22,6 +22,8 @@ const oidcConfig: AuthProviderProps = {
 
   },
   onRemoveUser: async () =>{
+    window.location.replace('/login');
+    
     document.cookie = `jwt_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
   }
   

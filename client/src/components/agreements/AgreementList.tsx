@@ -104,7 +104,7 @@ const AgreementList: React.FC<AgreementListProps> = ({ onEdit }) => {
 
       <div className="text-center">
         <button
-          className="btn btn-primary"
+          className="btn btn-primary text-white"
           onClick={handleShowAddModal}
         >
           Add Agreement

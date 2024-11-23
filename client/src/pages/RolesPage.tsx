@@ -3,11 +3,11 @@ import RoleList from "../components/roles/RoleList";
 
 const RolesPage: React.FC = () => (
   <div className="container mt-5">
-    <div className="card shadow-lg border-0 bg-light">
+    <div className="card shadow-lg border-0">
       {" "}
       <div className="card-header bg-primary text-white text-center">
         {" "}
-        <h2 className="mb-0">Roles</h2>
+        <h2 className="mb-0" style={{ fontFamily: "Mariupol, sans-serif" }}>Roles</h2>
       </div>
       <div className="card-body bg-white">
         {" "}

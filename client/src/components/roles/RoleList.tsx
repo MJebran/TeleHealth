@@ -131,7 +131,7 @@ const RoleList: React.FC = () => {
 
       <div className="text-center">
         <button
-          className="btn btn-primary"
+          className="btn btn-primary text-white"
           style={{
             maxWidth: "300px",
             borderRadius: "8px",

@@ -6,6 +6,7 @@ import AgreementsPage from "./pages/AgreementsPage";
 import ErrorFallback from "./components/ErrorFallback";
 import { ErrorBoundary } from "react-error-boundary";
 import { ToastProvider } from "./context/ToastProvider";
+import UserDetails from "./components/user/UserDetails";
 import {
   QueryClient,
   QueryClientProvider,
@@ -15,7 +16,8 @@ import toast from "react-hot-toast";
 import "./Style/style.scss";
 import { AuthRequired } from "./components/auth/AuthRequired";
 import RolesPage from "./pages/RolesPage";
-// import UsersPage from "./pages/UsersPage";
+import UserPage from "./pages/UserPage";
+import { UserProvider } from "./context/UserContext"; // Import UserProvider
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -32,10 +34,11 @@ const App: React.FC = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-        <ToastProvider>
-          <Router>
-            <Navbar />
-            <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
+      <ToastProvider>
+        <Router>
+          <Navbar />
+          <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
+            <UserProvider> {/* Add UserProvider here */}
               <Routes>
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/contact" element={<ContactPage />} />
@@ -47,13 +50,15 @@ const App: React.FC = () => {
                     </AuthRequired>
                   }
                 />
-                <Route path="/agreements" element={<AgreementsPage />} /> 
+                <Route path="/agreements" element={<AgreementsPage />} />
                 <Route path="/roles" element={<RolesPage />} />
-                {/* <Route path="/users" element={<UsersPage />} /> */}
+                <Route path="/users" element={<UserPage />} />
+                <Route path="/users/:id" element={<UserDetails />} />
               </Routes>
-            </ErrorBoundary>
-          </Router>
-        </ToastProvider>
+            </UserProvider>
+          </ErrorBoundary>
+        </Router>
+      </ToastProvider>
     </QueryClientProvider>
   );
 };

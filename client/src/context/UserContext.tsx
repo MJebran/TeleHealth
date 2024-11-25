@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { User } from "../types/userTypes";
+import { User, NewUserPayload } from "../types/userTypes";
 import axiosInstance from "../services/axiosInstance";
 import toast from "react-hot-toast";
 
 interface UserContextProps {
   users: User[];
   getUserById: (id: number) => Promise<User>;
-  addUser: (user: User) => Promise<void>;
+  addUser: (payload: NewUserPayload) => Promise<void>;
   updateUser: (id: number, updatedUser: User) => Promise<void>;
   deleteUser: (id: number) => Promise<void>;
 }
@@ -44,9 +44,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const addUser = async (user: User) => {
+  const addUser = async (payload: NewUserPayload) => {
     try {
-      const response = await axiosInstance.post("/User", user);
+      const response = await axiosInstance.post("/User", payload);
       setUsers((prev) => [...prev, response.data]);
       toast.success("User added successfully!");
     } catch (error) {

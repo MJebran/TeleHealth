@@ -16,3 +16,17 @@ export interface User {
     roleName: string;
   } | null; // Allow role to be null
 }
+
+export interface NewUserPayload {
+  username: string;
+  password: string;
+  email: string;
+  fullName?: string | null;
+  gender?: string | null;
+  roleId?: number | null;
+  isApproved?: boolean;
+  verified?: boolean;
+  hasAcceptedAgreement: boolean; // Required for backend
+  agreementId?: number | null;
+}
+

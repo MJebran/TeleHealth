@@ -1,5 +1,5 @@
 import axiosInstance from "./axiosInstance";
-import { User } from "../types/userTypes";
+import { User, NewUserPayload } from "../types/userTypes";
 
 export const getUsers = async (): Promise<User[]> => {
   const response = await axiosInstance.get<User[]>("/User");
@@ -11,8 +11,8 @@ export const getUserById = async (id: number): Promise<User> => {
   return response.data;
 };
 
-export const addUser = async (user: User): Promise<User> => {
-  const response = await axiosInstance.post<User>("/User", user);
+export const addUser = async (payload: NewUserPayload): Promise<User> => {
+  const response = await axiosInstance.post<User>("/User", payload);
   return response.data;
 };
 

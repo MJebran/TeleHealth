@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { User } from "../types/userTypes";
+import { User, NewUserPayload } from "../types/userTypes";
 import {
   getUsers,
   addUser,
@@ -29,7 +29,20 @@ export const useUsers = () => {
 
   const addNewUser = async (user: User) => {
     try {
-      const newUser = await addUser(user);
+      const payload: NewUserPayload = {
+        username: user.username,
+        email: user.email,
+        password: user.password || "", // Provide a default empty string if undefined
+        fullName: user.fullName || undefined,
+        gender: user.gender || undefined,
+        roleId: user.roleId || null,
+        isApproved: user.isApproved || false,
+        verified: user.verified || false,
+        hasAcceptedAgreement: user.hasAcceptedAgreement || false,
+        agreementId: user.agreementId || null,
+      };
+  
+      const newUser = await addUser(payload);
       setUsers((prev) => [...prev, newUser]);
     } catch {
       setError("Failed to add user");

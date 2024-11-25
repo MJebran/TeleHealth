@@ -3,7 +3,7 @@ import { useUserContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
 import { Button, Modal, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { User } from "../types/userTypes";
+import { User, NewUserPayload } from "../types/userTypes";
 
 const UserPage: React.FC = () => {
   const { users, addUser } = useUserContext();
@@ -39,7 +39,20 @@ const UserPage: React.FC = () => {
     }
 
     try {
-      await addUser(newUser);
+      const payload: NewUserPayload = {
+        username: newUser.username,
+        password: newUser.password,
+        email: newUser.email,
+        fullName: newUser.fullName || null,
+        gender: newUser.gender || null,
+        roleId: newUser.roleId || null,
+        isApproved: newUser.isApproved || false,
+        verified: newUser.verified || false,
+        hasAcceptedAgreement: true, // Required for backend
+        agreementId: newUser.agreementId || null,
+      };
+
+      await addUser(payload);
       toast.success("User added successfully!");
       handleCloseModal();
       setNewUser({
@@ -49,14 +62,15 @@ const UserPage: React.FC = () => {
         password: "",
         fullName: "",
         gender: "",
-        roleId: Number(null),
+        roleId: null,
         isApproved: false,
         verified: false,
-        hasAcceptedAgreement: false,
-        agreementId: Number(null),
+        hasAcceptedAgreement: false, // Reset for next input
+        agreementId: null,
         role: null,
       });
-    } catch {
+    } catch (error) {
+      console.error(error);
       toast.error("Failed to add user.");
     }
   };
@@ -65,7 +79,9 @@ const UserPage: React.FC = () => {
     <div className="container mt-5">
       <div className="card shadow-lg border-0">
         <div className="card-header bg-primary text-white d-flex justify-content-center align-items-center">
-          <h2 className="mb-0" style={{ fontFamily: "Mariupol, sans-serif" }}>Users</h2>
+          <h2 className="mb-0" style={{ fontFamily: "Mariupol, sans-serif" }}>
+            Users
+          </h2>
         </div>
         <div className="card-body">
           {/* Search Bar and Add User Button */}
@@ -78,7 +94,11 @@ const UserPage: React.FC = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Button variant="primary" className="text-white " onClick={handleShowModal}>
+            <Button
+              variant="primary"
+              className="text-white "
+              onClick={handleShowModal}
+            >
               Add User
             </Button>
           </div>
@@ -221,3 +241,4 @@ const UserPage: React.FC = () => {
 };
 
 export default UserPage;
+

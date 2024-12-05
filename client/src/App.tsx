@@ -17,7 +17,12 @@ import "./Style/style.scss";
 import { AuthRequired } from "./components/auth/AuthRequired";
 import RolesPage from "./pages/RolesPage";
 import UserPage from "./pages/UserPage";
-import { UserProvider } from "./context/UserContext"; // Import UserProvider
+import { UserProvider } from "./context/UserContext"; 
+import HomePage  from "./components/HomePage";
+import ApplyPage from "./components/ApplyPage";
+import ForPatientsPage from "./components/ForPatientsPage";
+import ForDoctorsPage from "./components/ForDoctorsPage";
+import ForScribeInternsPage from "./components/ForScribeInternsPage";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -38,7 +43,9 @@ const App: React.FC = () => {
         <Router>
           <Navbar />
           <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
-            <UserProvider> {/* Add UserProvider here */}
+            <UserProvider>
+              {" "}
+              {/* Add UserProvider here */}
               <Routes>
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/contact" element={<ContactPage />} />
@@ -54,6 +61,11 @@ const App: React.FC = () => {
                 <Route path="/roles" element={<RolesPage />} />
                 <Route path="/users" element={<UserPage />} />
                 <Route path="/users/:id" element={<UserDetails />} />
+                <Route path="/" element={<HomePage />} />
+                <Route path="/apply" element={<ApplyPage />} />
+                <Route path="/for-patients" element={<ForPatientsPage />} />
+                <Route path="/for-doctors" element={<ForDoctorsPage />} />
+                <Route path="/for-scribe-interns" element={<ForScribeInternsPage />} />
               </Routes>
             </UserProvider>
           </ErrorBoundary>

@@ -17,7 +17,11 @@ const Navbar = () => {
         isMobile ? "navbar-bottom" : "navbar-expand-lg"
       } navbar-dark bg-dark`}
     >
-      <div className="container d-flex justify-content-${isMobile ? 'center' : 'start'}">
+      <div
+        className={`container d-flex ${
+          isMobile ? "justify-content-center" : "justify-content-start"
+        }`}
+      >
         <Link
           className={`navbar-brand d-flex ${
             isMobile ? "flex-column align-items-center" : "align-items-center"
@@ -28,7 +32,9 @@ const Navbar = () => {
           {isMobile && <span>Home</span>}
         </Link>
         <Link
-          className="navbar-brand d-flex align-items-center ms-4"
+          className={`navbar-brand d-flex ${
+            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
+          }`}
           to="/inventory"
         >
           <i className="bi bi-box-seam-fill" />
@@ -36,9 +42,7 @@ const Navbar = () => {
         </Link>
         <Link
           className={`navbar-brand d-flex ${
-            isMobile
-              ? "flex-column align-items-center"
-              : "align-items-center ms-4"
+            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
           }`}
           to="/contact"
         >
@@ -47,18 +51,49 @@ const Navbar = () => {
         </Link>
         <Link
           className={`navbar-brand d-flex ${
-            isMobile
-              ? "flex-column align-items-center"
-              : "align-items-center ms-4"
+            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
           }`}
           to="/about"
         >
           <i className="bi bi-info-circle-fill" />
           {isMobile && <span>About</span>}
         </Link>
-        <Link to="/agreements">Agreements</Link>
-        <Link to="/roles">Roles</Link>
-        <Link to="/users">Users</Link>
+        <Link
+          className={`navbar-brand d-flex ${
+            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
+          }`}
+          to="/agreements"
+        >
+          <i className="bi bi-file-earmark-text-fill" />
+          {isMobile && <span>Agreements</span>}
+        </Link>
+        <Link
+          className={`navbar-brand d-flex ${
+            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
+          }`}
+          to="/roles"
+        >
+          <i className="bi bi-person-badge-fill" />
+          {isMobile && <span>Roles</span>}
+        </Link>
+        <Link
+          className={`navbar-brand d-flex ${
+            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
+          }`}
+          to="/users"
+        >
+          <i className="bi bi-people-fill" />
+          {isMobile && <span>Users</span>}
+        </Link>
+        <Link
+          className={`navbar-brand d-flex ${
+            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
+          }`}
+          to="/apply"
+        >
+          <i className="bi bi-clipboard-plus" />
+          {isMobile && <span>Apply</span>}
+          </Link>
       </div>
     </nav>
   );

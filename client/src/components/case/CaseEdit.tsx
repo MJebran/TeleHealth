@@ -4,7 +4,7 @@ import { useCaseContext } from "../../context/CaseContext";
 import { NewCasePayload } from "../../types/caseTypes";
 
 const CaseEdit: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Get case ID from URL
+  const { id } = useParams<{ id: string }>();
   const { cases, updateCaseById, refreshCases } = useCaseContext();
   const navigate = useNavigate();
 
@@ -22,7 +22,6 @@ const CaseEdit: React.FC = () => {
   useEffect(() => {
     const fetchCase = async () => {
       const caseToEdit = cases.find((c) => c.id === parseInt(id || "0"));
-
       if (!caseToEdit) {
         await refreshCases();
       } else {
@@ -35,7 +34,6 @@ const CaseEdit: React.FC = () => {
           statusId: caseToEdit.statusId || undefined,
         });
       }
-
       setLoading(false);
     };
 
@@ -52,7 +50,7 @@ const CaseEdit: React.FC = () => {
     try {
       if (id) {
         await updateCaseById(parseInt(id), formData);
-        navigate(`/cases/${id}`); // Navigate back to case details
+        navigate(`/cases/${id}`);
       }
     } catch (error) {
       console.error("Failed to update the case:", error);
@@ -69,96 +67,124 @@ const CaseEdit: React.FC = () => {
 
   return (
     <div className="container mt-5">
-      <h2 className="text-primary">Edit Case</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            Title
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            className="form-control"
-            value={formData.title}
-            onChange={handleChange}
-            required
-          />
+      <div className="card shadow-lg border-0">
+        <div className="card-header bg-primary text-white text-center">
+          <h3 className="mb-0" style={{ fontFamily: "Mariupol, sans-serif" }}>
+            Edit Case
+          </h3>
         </div>
-        <div className="mb-3">
-          <label htmlFor="description" className="form-label">
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            className="form-control"
-            value={formData.description}
-            onChange={handleChange}
-          ></textarea>
+        <div className="card-body">
+          <form onSubmit={handleSubmit}>
+            <div className="row mb-4">
+              <div className="col-md-12">
+                <label htmlFor="title" className="form-label text-primary">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  className="form-control"
+                  value={formData.title}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+            <hr />
+
+            <div className="row mb-4">
+              <div className="col-md-12">
+                <label htmlFor="description" className="form-label text-primary">
+                  Description
+                </label>
+                <textarea
+                  id="description"
+                  name="description"
+                  className="form-control"
+                  rows={3}
+                  value={formData.description}
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+            </div>
+            <hr />
+
+            <div className="row mb-4">
+              <div className="col-md-6">
+                <label htmlFor="symptoms" className="form-label text-primary">
+                  Symptoms
+                </label>
+                <textarea
+                  id="symptoms"
+                  name="symptoms"
+                  className="form-control"
+                  rows={3}
+                  value={formData.symptoms}
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="history" className="form-label text-primary">
+                  History
+                </label>
+                <textarea
+                  id="history"
+                  name="history"
+                  className="form-control"
+                  rows={3}
+                  value={formData.history}
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+            </div>
+            <hr />
+
+            <div className="row mb-4">
+              <div className="col-md-6">
+                <label htmlFor="statusId" className="form-label text-primary">
+                  Status ID
+                </label>
+                <input
+                  type="number"
+                  id="statusId"
+                  name="statusId"
+                  className="form-control"
+                  value={formData.statusId || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="patientId" className="form-label text-primary">
+                  Patient ID
+                </label>
+                <input
+                  type="number"
+                  id="patientId"
+                  name="patientId"
+                  className="form-control"
+                  value={formData.patientId}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="text-center">
+              <button type="submit" className="btn btn-primary text-white">
+                Save Changes
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary ms-2"
+                onClick={() => navigate(`/cases/${id}`)}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="mb-3">
-          <label htmlFor="symptoms" className="form-label">
-            Symptoms
-          </label>
-          <textarea
-            id="symptoms"
-            name="symptoms"
-            className="form-control"
-            value={formData.symptoms}
-            onChange={handleChange}
-          ></textarea>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="history" className="form-label">
-            History
-          </label>
-          <textarea
-            id="history"
-            name="history"
-            className="form-control"
-            value={formData.history}
-            onChange={handleChange}
-          ></textarea>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="patientId" className="form-label">
-            Patient ID
-          </label>
-          <input
-            type="number"
-            id="patientId"
-            name="patientId"
-            className="form-control"
-            value={formData.patientId}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="statusId" className="form-label">
-            Status ID
-          </label>
-          <input
-            type="number"
-            id="statusId"
-            name="statusId"
-            className="form-control"
-            value={formData.statusId || ""}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Save Changes
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary ms-2"
-          onClick={() => navigate(`/cases/${id}`)}
-        >
-          Cancel
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

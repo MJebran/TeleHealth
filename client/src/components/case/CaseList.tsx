@@ -12,7 +12,6 @@ const CaseList: React.FC<CaseListProps> = ({ cases }) => {
 
   return (
     <div>
-      <h2 className="text-primary">Cases</h2>
       {cases.length === 0 ? (
         <p className="text-muted">No cases available.</p>
       ) : (

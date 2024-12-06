@@ -5,7 +5,7 @@ import { useUserContext } from "../../context/UserContext";
 import { Case } from "../../types/caseTypes";
 
 const CaseDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Extract ID from URL
+  const { id } = useParams<{ id: string }>();
   const { cases, refreshCases } = useCaseContext();
   const { users } = useUserContext();
   const [caseDetail, setCaseDetail] = useState<Case | null>(null);
@@ -18,10 +18,9 @@ const CaseDetail: React.FC = () => {
 
   useEffect(() => {
     const fetchCase = async () => {
-      // Find the case in context; if not present, refresh cases
       const foundCase = cases.find((c) => c.id === parseInt(id || "0"));
       if (!foundCase) {
-        await refreshCases(); // Fetch updated data if the case isn't in the current list
+        await refreshCases();
       } else {
         setCaseDetail(foundCase);
       }
@@ -42,43 +41,84 @@ const CaseDetail: React.FC = () => {
     <div className="container mt-5">
       <div className="card shadow-lg border-0">
         <div className="card-header bg-primary text-white">
-          <h3 className="mb-0" style={{ fontFamily: "Mariupol, sans-serif" }}>
+          <h3
+            className="mb-0 text-center"
+            style={{ fontFamily: "Mariupol, sans-serif" }}
+          >
             Case Details
           </h3>
         </div>
         <div className="card-body">
-          <h5 className="text-primary">Title</h5>
-          <p>{caseDetail.title}</p>
+          {/* Title */}
+          <div className="row mb-2">
+            <div className="col-12">
+              <h5 className="text-primary">Title</h5>
+              <p>{caseDetail.title}</p>
+              <hr />
+            </div>
+          </div>
 
-          <h5 className="text-primary">Description</h5>
-          <p>{caseDetail.description || "No description provided"}</p>
+          {/* Description */}
+          <div className="row mb-2">
+            <div className="col-12">
+              <h5 className="text-primary">Description</h5>
+              <p>{caseDetail.description || "No description provided"}</p>
+              <hr />
+            </div>
+          </div>
 
-          <h5 className="text-primary">Symptoms</h5>
-          <p>{caseDetail.symptoms || "No symptoms provided"}</p>
+          {/* Symptoms */}
+          <div className="row mb-2">
+            <div className="col-12">
+              <h5 className="text-primary">Symptoms</h5>
+              <p>{caseDetail.symptoms || "No symptoms provided"}</p>
+              <hr />
+            </div>
+          </div>
 
-          <h5 className="text-primary">History</h5>
-          <p>{caseDetail.history || "No history provided"}</p>
+          {/* History */}
+          <div className="row mb-2">
+            <div className="col-12">
+              <h5 className="text-primary">History</h5>
+              <p>{caseDetail.history || "No history provided"}</p>
+              <hr />
+            </div>
+          </div>
 
-          <h5 className="text-primary">Patient</h5>
-          <p>{getUserName(caseDetail.patientId)}</p>
-
-          <h5 className="text-primary">Scribe</h5>
-          <p>{getUserName(caseDetail.scribeId)}</p>
-
-          <h5 className="text-primary">Doctor</h5>
-          <p>{getUserName(caseDetail.doctorId)}</p>
-
-          <h5 className="text-primary">Status ID</h5>
-          <p>{caseDetail.statusId || "Unknown"}</p>
-
-          <h5 className="text-primary">Created At</h5>
-          <p>{caseDetail.createdAt ? new Date(caseDetail.createdAt).toLocaleString() : "Unknown"}</p>
+          {/* Patient, Scribe, and Doctor */}
+          <div className="row mb-2">
+            <div className="col-md-2">
+              <h5 className="text-primary">Patient</h5>
+              <p>{getUserName(caseDetail.patientId)}</p>
+            </div>
+            <div className="col-md-2">
+              <h5 className="text-primary">Scribe</h5>
+              <p>{getUserName(caseDetail.scribeId)}</p>
+            </div>
+            <div className="col-md-2">
+              <h5 className="text-primary">Doctor</h5>
+              <p>{getUserName(caseDetail.doctorId)}</p>
+            </div>
+            <div className="col-md-2">
+              <h5 className="text-primary">Status ID</h5>
+              <p>{caseDetail.statusId || "Unknown"}</p>
+            </div>
+            <div className="col-md-2">
+              <h5 className="text-primary">Created At</h5>
+              <p>
+                {caseDetail.createdAt
+                  ? new Date(caseDetail.createdAt).toLocaleString()
+                  : "Unknown"}
+              </p>
+            </div>
+          </div>
         </div>
+
         <div className="card-footer text-center">
           <Link to="/cases" className="btn btn-secondary me-2">
             Back to Cases
           </Link>
-          <Link to={`/cases/edit/${caseDetail.id}`} className="btn btn-primary">
+          <Link to={`/cases/edit/${caseDetail.id}`} className="btn btn-primary text-light">
             Edit Case
           </Link>
         </div>

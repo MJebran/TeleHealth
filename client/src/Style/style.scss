@@ -147,6 +147,19 @@ h1.item-management {
   }
 }
 
+/* Navbar Icon Hover and Active States */
+.navbar-brand .bi:hover,
+.navbar-brand .bi:focus {
+  color: #74c0cc; /* Color on hover and focus */
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar-brand .bi:active {
+  color: #74c0cc; /* Color on click */
+}
+
+
 @media (min-width: 769px) {
   .navbar-bottom {
     display: none; // Hide bottom navbar on desktop

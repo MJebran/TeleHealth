@@ -26,6 +26,7 @@ import ForScribeInternsPage from "./components/ForScribeInternsPage";
 import CasePage from "./pages/CasePage";
 import CaseDetail from "./components/case/CaseDetail";
 import { CaseProvider } from "./context/CaseContext";
+import CaseEdit from "./components/case/CaseEdit";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -70,6 +71,8 @@ const App: React.FC = () => {
                 <Route path="/for-scribe-interns" element={<ForScribeInternsPage />} />
                 <Route path="/cases" element={<CasePage />} />;
                 <Route path="/cases/:id" element={<CaseDetail />} />;
+                <Route path="/cases/edit/:id" element={<CaseEdit />} />
+
               </Routes>
               </CaseProvider>
             </UserProvider>

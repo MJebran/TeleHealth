@@ -1,28 +1,36 @@
 import React from "react";
-import { useCaseContext } from "../../context/CaseContext";
 import { Link } from "react-router-dom";
+import { Case } from "../../types/caseTypes";
+import { useUserContext } from "../../context/UserContext";
 
-const CaseList: React.FC = () => {
-  const { cases } = useCaseContext();
+interface CaseListProps {
+  cases: Case[];
+}
 
-  console.log("Rendering cases:", cases); // Log cases during rendering
-
-  if (cases.length === 0) {
-    return <p className="text-muted">No cases available.</p>;
-  }
+const CaseList: React.FC<CaseListProps> = ({ cases }) => {
+  const { users } = useUserContext();
 
   return (
     <div>
       <h2 className="text-primary">Cases</h2>
-      <ul className="list-group">
-        {cases.map((caseItem) => (
-          <li key={caseItem.id} className="list-group-item">
-            <Link to={`/cases/${caseItem.id}`} className="text-decoration-none">
-              <strong>{caseItem.title}</strong> - {caseItem.description || "No description provided"}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {cases.length === 0 ? (
+        <p className="text-muted">No cases available.</p>
+      ) : (
+        <ul className="list-group">
+          {cases.map((caseItem) => {
+            const patient = users.find((user) => user.id === caseItem.patientId);
+
+            return (
+              <li key={caseItem.id} className="list-group-item">
+                <Link to={`/cases/${caseItem.id}`}>
+                  <strong>{caseItem.title}</strong> -{" "}
+                  {patient?.fullName || "Unknown Patient"}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 };

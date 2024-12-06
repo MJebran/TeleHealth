@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Navbar = () => {
+  const location = useLocation();
   const [isMobile, setIsMobile] = useState(false);
+  const [activePath, setActivePath] = useState(location.pathname);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -10,6 +12,10 @@ const Navbar = () => {
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    setActivePath(location.pathname); // Update activePath when the route changes
+  }, [location]);
 
   return (
     <nav
@@ -22,88 +28,45 @@ const Navbar = () => {
           isMobile ? "justify-content-center" : "justify-content-start"
         }`}
       >
-        <Link
-          className={`navbar-brand d-flex ${
-            isMobile ? "flex-column align-items-center" : "align-items-center"
-          }`}
-          to="/"
-        >
-          <i className="bi bi-house-fill" />
-          {isMobile && <span>Home</span>}
-        </Link>
-        <Link
-          className={`navbar-brand d-flex ${
-            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
-          }`}
-          to="/inventory"
-        >
-          <i className="bi bi-box-seam-fill" />
-          {isMobile && <span>Inventory</span>}
-        </Link>
-        <Link
-          className={`navbar-brand d-flex ${
-            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
-          }`}
-          to="/contact"
-        >
-          <i className="bi bi-person-fill" />
-          {isMobile && <span>Contact</span>}
-        </Link>
-        <Link
-          className={`navbar-brand d-flex ${
-            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
-          }`}
-          to="/about"
-        >
-          <i className="bi bi-info-circle-fill" />
-          {isMobile && <span>About</span>}
-        </Link>
-        <Link
-          className={`navbar-brand d-flex ${
-            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
-          }`}
-          to="/agreements"
-        >
-          <i className="bi bi-file-earmark-text-fill" />
-          {isMobile && <span>Agreements</span>}
-        </Link>
-        <Link
-          className={`navbar-brand d-flex ${
-            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
-          }`}
-          to="/roles"
-        >
-          <i className="bi bi-person-badge-fill" />
-          {isMobile && <span>Roles</span>}
-        </Link>
-        <Link
-          className={`navbar-brand d-flex ${
-            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
-          }`}
-          to="/users"
-        >
-          <i className="bi bi-people-fill" />
-          {isMobile && <span>Users</span>}
-        </Link>
-        <Link
-          className={`navbar-brand d-flex ${
-            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
-          }`}
-          to="/apply"
-        >
-          <i className="bi bi-clipboard-plus" />
-          {isMobile && <span>Apply</span>}
+        {[
+          { path: "/", icon: "bi-house-fill", label: "Home" },
+          { path: "/inventory", icon: "bi-box-seam-fill", label: "Inventory" },
+          { path: "/contact", icon: "bi-person-fill", label: "Contact" },
+          { path: "/about", icon: "bi-info-circle-fill", label: "About" },
+          { path: "/agreements", icon: "bi-file-earmark-text-fill", label: "Agreements" },
+          { path: "/roles", icon: "bi-person-badge-fill", label: "Roles" },
+          { path: "/users", icon: "bi-people-fill", label: "Users" },
+          { path: "/apply", icon: "bi-clipboard-plus", label: "Apply" },
+          { path: "/cases", icon: "bi-briefcase-fill", label: "Cases" },
+          // { path: "/case-detail", icon: "bi-file-earmark-person-fill", label: "Case Detail" },
+        ].map((item, index) => (
+          <Link
+            key={index}
+            className={`navbar-brand d-flex flex-column align-items-center ms-4 ${
+              activePath === item.path ? "active" : ""
+            }`}
+            to={item.path}
+            onClick={() => setActivePath(item.path)}
+          >
+            <i
+              className={`bi ${item.icon}`}
+              style={{
+                fontSize: "1.5rem",
+                color: activePath === item.path ? "#74c0cc" : "white",
+                transition: "color 0.2s ease-in-out",
+              }}
+            />
+            <span
+              style={{
+                fontSize: "0.85rem",
+                color: activePath === item.path ? "#74c0cc" : "white",
+                marginTop: "0.25rem",
+              }}
+            >
+              {item.label}
+            </span>
           </Link>
-          //add link to case Detail 
-        <Link
-          className={`navbar-brand d-flex ${
-            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
-          }`}
-          to="/cases"
-        >   
-          <i className="bi bi-briefcase-fill" />
-          {isMobile && <span>Cases</span>}
-        </Link>
+        ))}
       </div>
     </nav>
   );

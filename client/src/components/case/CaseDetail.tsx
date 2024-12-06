@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useCaseContext } from "../../context/CaseContext";
+import { useUserContext } from "../../context/UserContext";
 import { Case } from "../../types/caseTypes";
 
 const CaseDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Extract ID from URL
   const { cases, refreshCases } = useCaseContext();
+  const { users } = useUserContext();
   const [caseDetail, setCaseDetail] = useState<Case | null>(null);
+
+  const getUserName = (userId: number | null | undefined) => {
+    if (!userId) return "Not assigned";
+    const user = users.find((user) => user.id === userId);
+    return user ? user.fullName || user.username : "Unknown User";
+  };
 
   useEffect(() => {
     const fetchCase = async () => {
@@ -51,14 +59,14 @@ const CaseDetail: React.FC = () => {
           <h5 className="text-primary">History</h5>
           <p>{caseDetail.history || "No history provided"}</p>
 
-          <h5 className="text-primary">Patient ID</h5>
-          <p>{caseDetail.patientId}</p>
+          <h5 className="text-primary">Patient</h5>
+          <p>{getUserName(caseDetail.patientId)}</p>
 
-          <h5 className="text-primary">Scribe ID</h5>
-          <p>{caseDetail.scribeId || "Not assigned"}</p>
+          <h5 className="text-primary">Scribe</h5>
+          <p>{getUserName(caseDetail.scribeId)}</p>
 
-          <h5 className="text-primary">Doctor ID</h5>
-          <p>{caseDetail.doctorId || "Not assigned"}</p>
+          <h5 className="text-primary">Doctor</h5>
+          <p>{getUserName(caseDetail.doctorId)}</p>
 
           <h5 className="text-primary">Status ID</h5>
           <p>{caseDetail.statusId || "Unknown"}</p>

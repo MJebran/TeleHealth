@@ -17,12 +17,15 @@ import "./Style/style.scss";
 import { AuthRequired } from "./components/auth/AuthRequired";
 import RolesPage from "./pages/RolesPage";
 import UserPage from "./pages/UserPage";
-import { UserProvider } from "./context/UserContext"; 
-import HomePage  from "./components/HomePage";
+import { UserProvider } from "./context/UserContext";
+import HomePage from "./components/HomePage";
 import ApplyPage from "./components/ApplyPage";
 import ForPatientsPage from "./components/ForPatientsPage";
 import ForDoctorsPage from "./components/ForDoctorsPage";
 import ForScribeInternsPage from "./components/ForScribeInternsPage";
+import CasePage from "./pages/CasePage";
+import CaseDetail from "./components/case/CaseDetail";
+import { CaseProvider } from "./context/CaseContext";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -44,14 +47,13 @@ const App: React.FC = () => {
           <Navbar />
           <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
             <UserProvider>
+            <CaseProvider>
               {" "}
               {/* Add UserProvider here */}
               <Routes>
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/contact" element={<ContactPage />} />
-                <Route
-                  path="/about/:id"
-                  element={
+                <Route path="/about/:id" element={
                     <AuthRequired>
                       <AboutPage />
                     </AuthRequired>
@@ -66,7 +68,10 @@ const App: React.FC = () => {
                 <Route path="/for-patients" element={<ForPatientsPage />} />
                 <Route path="/for-doctors" element={<ForDoctorsPage />} />
                 <Route path="/for-scribe-interns" element={<ForScribeInternsPage />} />
+                <Route path="/cases" element={<CasePage />} />;
+                <Route path="/cases/:id" element={<CaseDetail />} />;
               </Routes>
+              </CaseProvider>
             </UserProvider>
           </ErrorBoundary>
         </Router>

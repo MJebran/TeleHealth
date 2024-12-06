@@ -94,6 +94,16 @@ const Navbar = () => {
           <i className="bi bi-clipboard-plus" />
           {isMobile && <span>Apply</span>}
           </Link>
+          //add link to case Detail 
+        <Link
+          className={`navbar-brand d-flex ${
+            isMobile ? "flex-column align-items-center" : "align-items-center ms-4"
+          }`}
+          to="/cases"
+        >   
+          <i className="bi bi-briefcase-fill" />
+          {isMobile && <span>Cases</span>}
+        </Link>
       </div>
     </nav>
   );

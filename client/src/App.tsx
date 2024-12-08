@@ -48,32 +48,38 @@ const App: React.FC = () => {
           <Navbar />
           <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
             <UserProvider>
-            <CaseProvider>
-              {" "}
-              {/* Add UserProvider here */}
-              <Routes>
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/about/:id" element={
-                    <AuthRequired>
-                      <AboutPage />
-                    </AuthRequired>
-                  }
-                />
-                <Route path="/agreements" element={<AgreementsPage />} />
-                <Route path="/roles" element={<RolesPage />} />
-                <Route path="/users" element={<UserPage />} />
-                <Route path="/users/:id" element={<UserDetails />} />
-                <Route path="/" element={<HomePage />} />
-                <Route path="/apply" element={<ApplyPage />} />
-                <Route path="/for-patients" element={<ForPatientsPage />} />
-                <Route path="/for-doctors" element={<ForDoctorsPage />} />
-                <Route path="/for-scribe-interns" element={<ForScribeInternsPage />} />
-                <Route path="/cases" element={<CasePage />} />;
-                <Route path="/cases/:id" element={<CaseDetail />} />;
-                <Route path="/cases/edit/:id" element={<CaseEdit />} />
-
-              </Routes>
+              <CaseProvider>
+                {" "}
+                {/* Add UserProvider here */}
+                <div className="mb-5 pb-5">
+                  <Routes>
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route path="/contact" element={<ContactPage />} />
+                    <Route
+                      path="/about/:id"
+                      element={
+                        <AuthRequired>
+                          <AboutPage />
+                        </AuthRequired>
+                      }
+                    />
+                    <Route path="/agreements" element={<AgreementsPage />} />
+                    <Route path="/roles" element={<RolesPage />} />
+                    <Route path="/users" element={<UserPage />} />
+                    <Route path="/users/:id" element={<UserDetails />} />
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/apply" element={<ApplyPage />} />
+                    <Route path="/for-patients" element={<ForPatientsPage />} />
+                    <Route path="/for-doctors" element={<ForDoctorsPage />} />
+                    <Route
+                      path="/for-scribe-interns"
+                      element={<ForScribeInternsPage />}
+                    />
+                    <Route path="/cases" element={<CasePage />} />;
+                    <Route path="/cases/:id" element={<CaseDetail />} />;
+                    <Route path="/cases/edit/:id" element={<CaseEdit />} />
+                  </Routes>
+                </div>
               </CaseProvider>
             </UserProvider>
           </ErrorBoundary>

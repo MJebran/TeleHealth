@@ -4,16 +4,9 @@ import { Case, NewCasePayload } from "../types/caseTypes";
 const API_URL = "/Case";
 
 export const getCases = async (): Promise<Case[]> => {
-  try {
-    const response = await axiosInstance.get<Case[]>(API_URL);
-    console.log("API Response for getCases:", response.data); // Log the API response
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching cases:", error);
-    throw error;
-  }
+  const response = await axiosInstance.get<Case[]>(API_URL);
+  return response.data;
 };
-
 
 export const getCaseById = async (id: number): Promise<Case> => {
   const response = await axiosInstance.get<Case>(`${API_URL}/${id}`);
@@ -32,4 +25,16 @@ export const updateCase = async (id: number, updatedCase: NewCasePayload): Promi
 
 export const deleteCase = async (id: number): Promise<void> => {
   await axiosInstance.delete(`${API_URL}/${id}`);
+};
+
+export const updateCaseStatus = async (id: number, statusId: number): Promise<void> => {
+  await axiosInstance.put(`${API_URL}/UpdateStatus/${id}`, { statusId });
+};
+
+export const doctorAcceptCase = async (id: number): Promise<void> => {
+  await axiosInstance.put(`${API_URL}/DoctorAccept/${id}`);
+};
+
+export const completeCase = async (id: number): Promise<void> => {
+  await axiosInstance.put(`${API_URL}/Complete/${id}`);
 };

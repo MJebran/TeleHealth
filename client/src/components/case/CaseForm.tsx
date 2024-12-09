@@ -37,6 +37,7 @@ const CaseForm: React.FC = () => {
       description,
       symptoms,
       history,
+      statusId: 1, // Default status
     };
 
     try {

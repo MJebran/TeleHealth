@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 interface UserContextProps {
   users: User[];
   getUserById: (id: number) => Promise<User>;
-  addUser: (payload: NewUserPayload) => Promise<void>;
+  addUser: (payload: NewUserPayload) => Promise<User | null>;
   updateUser: (id: number, updatedUser: User) => Promise<void>;
   deleteUser: (id: number) => Promise<void>;
 }
@@ -44,16 +44,30 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const addUser = async (payload: NewUserPayload) => {
+  // const addUser = async (payload: NewUserPayload) => {
+  //   try {
+  //     const response = await axiosInstance.post("/User", payload);
+  //     setUsers((prev) => [...prev, response.data]);
+  //     toast.success("User added successfully!");
+  //   } catch (error) {
+  //     toast.error("Failed to add user.");
+  //     console.error(error);
+  //   }
+  // };
+  const addUser = async (payload: NewUserPayload): Promise<User | null> => {
     try {
-      const response = await axiosInstance.post("/User", payload);
+      const response = await axiosInstance.post<User>("/User", payload);
       setUsers((prev) => [...prev, response.data]);
       toast.success("User added successfully!");
+      return response.data; // Return the created user
     } catch (error) {
       toast.error("Failed to add user.");
       console.error(error);
+      return null; // Return null on failure
     }
   };
+  
+  
 
   const updateUser = async (id: number, updatedUser: User) => {
     try {

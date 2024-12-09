@@ -27,7 +27,7 @@ export const useUsers = () => {
     fetchUsers();
   }, []);
 
-  const addNewUser = async (user: User) => {
+  const addNewUser = async (user: User): Promise<User | null> => {
     try {
       const payload: NewUserPayload = {
         username: user.username,
@@ -42,12 +42,15 @@ export const useUsers = () => {
         agreementId: user.agreementId || null,
       };
   
-      const newUser = await addUser(payload);
+      const newUser = await addUser(payload); // Ensure it returns the created user
       setUsers((prev) => [...prev, newUser]);
+      return newUser; // Return the new user with `id`
     } catch {
       setError("Failed to add user");
+      return null;
     }
   };
+  
 
   const editUser = async (id: number, updatedUser: User) => {
     try {

@@ -8,7 +8,7 @@ export interface Case {
   symptoms?: string | null;
   history?: string | null;
   createdAt?: string | null;
-  statusId?: number | null;
+  statusId?: number;
 }
 
 export interface NewCasePayload {
@@ -19,10 +19,5 @@ export interface NewCasePayload {
   description?: string;
   symptoms?: string;
   history?: string;
-  statusId: number; // 1 by default
-}
-
-export interface CaseStatus {
-  id: number;
-  name: string;
+  statusId: number;
 }

@@ -14,7 +14,8 @@ export const getCaseById = async (id: number): Promise<Case> => {
 };
 
 export const createCase = async (newCase: NewCasePayload): Promise<Case> => {
-  const response = await axiosInstance.post<Case>(API_URL, newCase);
+  const payload = { ...newCase, statusId: 1 }; // Default status
+  const response = await axiosInstance.post<Case>(API_URL, payload);
   return response.data;
 };
 
@@ -28,13 +29,16 @@ export const deleteCase = async (id: number): Promise<void> => {
 };
 
 export const updateCaseStatus = async (id: number, statusId: number): Promise<void> => {
-  await axiosInstance.put(`${API_URL}/UpdateStatus/${id}`, { statusId });
+  const response = await axiosInstance.put(`${API_URL}/UpdateStatus/${id}`, statusId);
+  return response.data;
 };
 
 export const doctorAcceptCase = async (id: number): Promise<void> => {
-  await axiosInstance.put(`${API_URL}/DoctorAccept/${id}`);
+  const response = await axiosInstance.put(`${API_URL}/DoctorAccept/${id}`);
+  return response.data;
 };
 
 export const completeCase = async (id: number): Promise<void> => {
-  await axiosInstance.put(`${API_URL}/Complete/${id}`);
+  const response = await axiosInstance.put(`${API_URL}/Complete/${id}`);
+  return response.data;
 };

@@ -1,20 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useCaseContext } from "../../context/CaseContext";
+import { Case } from "../../types/caseTypes";
 import { useUserContext } from "../../context/UserContext";
 
-const CaseList: React.FC = () => {
-  const { cases } = useCaseContext(); // Fetch cases from the CaseContext
-  const { users } = useUserContext(); // Fetch users from the UserContext
+interface CaseListProps {
+  filteredCases: Case[]; // Ensure filteredCases is explicitly typed as an array of Case
+}
+
+const CaseList: React.FC<CaseListProps> = ({ filteredCases }) => {
+  const { users } = useUserContext(); // Fetch users from UserContext
 
   return (
     <div>
-      {cases.length === 0 ? (
+      {filteredCases.length === 0 ? (
         <p className="text-muted">No cases available.</p>
       ) : (
         <ul className="list-group">
-          {cases.map((caseItem) => {
-            // Find the patient associated with this case
+          {filteredCases.map((caseItem) => {
+            // Ensure caseItem is explicitly typed
             const patient = users.find((user) => user.id === caseItem.patientId);
 
             return (

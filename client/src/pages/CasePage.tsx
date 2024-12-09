@@ -5,15 +5,15 @@ import { useCaseContext } from "../context/CaseContext";
 import { useUserContext } from "../context/UserContext";
 
 const CasePage: React.FC = () => {
-  const { cases } = useCaseContext();
-  const { users } = useUserContext();
+  const { cases } = useCaseContext(); // Access cases correctly from useCaseContext
+  const { users } = useUserContext(); // Access users from UserContext
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filter cases based on patient name
   const filteredCases = cases.filter((caseItem) => {
     const patient = users.find((user) => user.id === caseItem.patientId);
     return (
-      patient?.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false
+      (patient?.fullName || "").toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
 
@@ -56,7 +56,7 @@ const CasePage: React.FC = () => {
             <div className="col-md-12">
               <h5 className="text-primary">Case List</h5>
               <div className="p-2 rounded" style={{ maxHeight: "400px", overflowY: "auto" }}>
-                <CaseList cases={filteredCases} />
+                <CaseList filteredCases={filteredCases} />
               </div>
             </div>
           </div>

@@ -14,7 +14,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    setActivePath(location.pathname); // Update activePath when the route changes
+    setActivePath(location.pathname);
   }, [location]);
 
   return (
@@ -30,7 +30,6 @@ const Navbar = () => {
       >
         {[
           { path: "/", icon: "bi-house-fill", label: "Home" },
-          { path: "/inventory", icon: "bi-box-seam-fill", label: "Inventory" },
           { path: "/contact", icon: "bi-person-fill", label: "Contact" },
           { path: "/about", icon: "bi-info-circle-fill", label: "About" },
           { path: "/agreements", icon: "bi-file-earmark-text-fill", label: "Agreements" },
@@ -38,7 +37,6 @@ const Navbar = () => {
           { path: "/users", icon: "bi-people-fill", label: "Users" },
           { path: "/apply", icon: "bi-clipboard-plus", label: "Apply" },
           { path: "/cases", icon: "bi-briefcase-fill", label: "Cases" },
-          // { path: "/case-detail", icon: "bi-file-earmark-person-fill", label: "Case Detail" },
         ].map((item, index) => (
           <Link
             key={index}

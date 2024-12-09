@@ -1,71 +1,74 @@
 import React, { useState } from "react";
-import { useCaseContext } from "../../context/CaseContext";
-import { useUserContext } from "../../context/UserContext";
+import { useCreateCase } from "../../hooks/useCaseHooks";
 import { NewCasePayload } from "../../types/caseTypes";
 
 const CaseForm: React.FC = () => {
-  const { addCase } = useCaseContext();
-  const { users } = useUserContext();
+  const { createNewCase, loading, error } = useCreateCase();
 
-  const [isExistingPatient, setIsExistingPatient] = useState(true);
-  const [patientId, setPatientId] = useState<number | null>(null);
-  const [newPatientName, setNewPatientName] = useState("");
+  const [patientName, setPatientName] = useState(""); // Added patient name
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [symptoms, setSymptoms] = useState("");
   const [history, setHistory] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-
   const [showModal, setShowModal] = useState(false);
+
+  const resetForm = () => {
+    setPatientName("");
+    setTitle("");
+    setDescription("");
+    setSymptoms("");
+    setHistory("");
+    setShowModal(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (isExistingPatient && !patientId) {
-      alert("Please select an existing patient.");
+    if (!patientName.trim()) {
+      alert("Please enter a valid patient name.");
       return;
     }
 
-    if (!isExistingPatient && !newPatientName.trim()) {
-      alert("Please enter the new patient's name.");
-      return;
-    }
-
-    const newCase: NewCasePayload = {
-      patientId: isExistingPatient ? patientId! : 0,
+    // Prepare payload with fixed IDs and patientName
+    const newCasePayload: NewCasePayload = {
+      patientId: 2, // Fixed patient ID as per your database
+      doctorId: 1,  // Fixed doctor ID as per your database
+      scribeId: 4,  // Fixed scribe ID as per your database
       title,
-      description,
-      symptoms,
-      history,
+      description: description || undefined,
+      symptoms: symptoms || undefined,
+      history: history || undefined,
       statusId: 1, // Default status
     };
 
     try {
-      await addCase(newCase);
-      setTitle("");
-      setDescription("");
-      setSymptoms("");
-      setHistory("");
-      setPatientId(null);
-      setNewPatientName("");
-      alert("Case created successfully!");
-      setShowModal(false); // Close the modal on success
-    } catch (error) {
-      console.error("Error creating case:", error);
-      alert("Failed to create case.");
+      const createdCase = await createNewCase(newCasePayload);
+
+      if (createdCase) {
+        alert(`Case created successfully for ${patientName}!`);
+        resetForm();
+      } else {
+        alert("Failed to create case. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error creating case:", err);
+      alert("An unexpected error occurred. Please try again.");
     }
   };
 
   return (
     <div>
-      {/* Button to Trigger Modal */}
       <button className="btn btn-primary mt-2 text-white" onClick={() => setShowModal(true)}>
         Create Case
       </button>
 
-      {/* Modal */}
       {showModal && (
-        <div className="modal show d-block" tabIndex={-1} role="dialog" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+        <div
+          className="modal show d-block"
+          tabIndex={-1}
+          role="dialog"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+        >
           <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content">
               <div className="modal-header">
@@ -74,91 +77,26 @@ const CaseForm: React.FC = () => {
                   type="button"
                   className="btn-close"
                   aria-label="Close"
-                  onClick={() => setShowModal(false)}
+                  onClick={resetForm}
                 ></button>
               </div>
               <div className="modal-body">
+                {loading && <p className="text-muted">Creating case...</p>}
+                {error && <p className="text-danger">{error}</p>}
                 <form onSubmit={handleSubmit}>
-                  {/* Toggle for Existing or New Patient */}
                   <div className="mb-3">
-                    <label className="form-label">Patient Type</label>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        id="existingPatient"
-                        name="patientType"
-                        checked={isExistingPatient}
-                        onChange={() => setIsExistingPatient(true)}
-                      />
-                      <label className="form-check-label" htmlFor="existingPatient">
-                        Existing Patient
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        id="newPatient"
-                        name="patientType"
-                        checked={!isExistingPatient}
-                        onChange={() => setIsExistingPatient(false)}
-                      />
-                      <label className="form-check-label" htmlFor="newPatient">
-                        New Patient
-                      </label>
-                    </div>
+                    <label htmlFor="patientName" className="form-label">
+                      Patient Name
+                    </label>
+                    <input
+                      type="text"
+                      id="patientName"
+                      className="form-control"
+                      value={patientName}
+                      onChange={(e) => setPatientName(e.target.value)}
+                      required
+                    />
                   </div>
-
-                  {/* Existing Patient Dropdown */}
-                  {isExistingPatient ? (
-                    <div className="mb-3">
-                      <label htmlFor="patient" className="form-label">
-                        Search Patient
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control mb-2"
-                        placeholder="Search by name"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                      />
-                      <select
-                        id="patient"
-                        className="form-select"
-                        value={patientId || ""}
-                        onChange={(e) => setPatientId(Number(e.target.value))}
-                      >
-                        <option value="">-- Select Patient --</option>
-                        {users
-                          .filter((user) =>
-                            user.fullName?.toLowerCase().includes(searchTerm.toLowerCase())
-                          )
-                          .map((user) => (
-                            <option key={user.id} value={user.id}>
-                              {user.fullName || user.username}
-                            </option>
-                          ))}
-                      </select>
-                    </div>
-                  ) : (
-                    // New Patient Input
-                    <div className="mb-3">
-                      <label htmlFor="newPatientName" className="form-label">
-                        New Patient Name
-                      </label>
-                      <input
-                        type="text"
-                        id="newPatientName"
-                        className="form-control"
-                        value={newPatientName}
-                        onChange={(e) => setNewPatientName(e.target.value)}
-                        placeholder="Enter new patient name"
-                      />
-                    </div>
-                  )}
-
-                  {/* Case Details */}
                   <div className="mb-3">
                     <label htmlFor="title" className="form-label">
                       Title
@@ -206,7 +144,7 @@ const CaseForm: React.FC = () => {
                     ></textarea>
                   </div>
 
-                  <button type="submit" className="btn btn-primary text-white">
+                  <button type="submit" className="btn btn-primary text-white" disabled={loading}>
                     Create Case
                   </button>
                 </form>

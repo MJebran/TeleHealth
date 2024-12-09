@@ -21,7 +21,7 @@ export interface NewUserPayload {
   username: string;
   password: string;
   email: string;
-  fullName?: string | null;
+  fullName?: string;
   gender?: string | null;
   roleId?: number | null;
   isApproved?: boolean;

@@ -1,9 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "react-oidc-context";
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const auth = useAuth();
 
   const [isMobile, setIsMobile] = useState(false);
@@ -20,6 +21,28 @@ const Navbar = () => {
     setActivePath(location.pathname);
   }, [location]);
 
+  const handleLogout = async () => {
+    await auth.removeUser(); // Logs out the user
+    navigate("/"); // Redirects to the Home page
+  };
+
+  // Links for unauthenticated and authenticated users
+  const guestLinks = [
+    { path: "/", icon: "bi-house-fill", label: "Home" },
+    { path: "/contact", icon: "bi-person-fill", label: "Contact" },
+    { path: "/about", icon: "bi-info-circle-fill", label: "About" },
+    { path: "/apply", icon: "bi-clipboard-plus", label: "Apply" },
+  ];
+
+  const authLinks = [
+    { path: "/agreements", icon: "bi-file-earmark-text-fill", label: "Agreements" },
+    { path: "/roles", icon: "bi-person-badge-fill", label: "Roles" },
+    { path: "/users", icon: "bi-people-fill", label: "Users" },
+    { path: "/cases", icon: "bi-briefcase-fill", label: "Cases" },
+  ];
+
+  const linksToRender = auth.isAuthenticated ? authLinks : guestLinks;
+
   return (
     <nav
       className={`navbar ${
@@ -32,16 +55,7 @@ const Navbar = () => {
         }`}
       >
         <div className="d-flex">
-          {[
-            { path: "/", icon: "bi-house-fill", label: "Home" },
-            { path: "/contact", icon: "bi-person-fill", label: "Contact" },
-            { path: "/about", icon: "bi-info-circle-fill", label: "About" },
-            { path: "/apply", icon: "bi-clipboard-plus", label: "Apply" },
-            { path: "/agreements", icon: "bi-file-earmark-text-fill", label: "Agreements" },
-            { path: "/roles", icon: "bi-person-badge-fill", label: "Roles" },
-            { path: "/users", icon: "bi-people-fill", label: "Users" },
-            { path: "/cases", icon: "bi-briefcase-fill", label: "Cases" },
-          ].map((item, index) => (
+          {linksToRender.map((item, index) => (
             <Link
               key={index}
               className={`navbar-brand d-flex flex-column align-items-center ms-4 ${
@@ -69,23 +83,38 @@ const Navbar = () => {
               </span>
             </Link>
           ))}
-        </div>
-        <div>
-          {auth.isAuthenticated ? (
-            <button
-              className="btn btn-outline-light"
-              onClick={() => void auth.removeUser()}
+
+          {/* Login/Logout Button */}
+          <div
+            className={`navbar-brand d-flex flex-column align-items-center ms-4 ${
+              isMobile ? "ms-2" : ""
+            }`}
+            onClick={auth.isAuthenticated ? handleLogout : () => auth.signinRedirect()}
+            style={{
+              cursor: "pointer",
+              transition: "color 0.2s ease-in-out",
+            }}
+          >
+            <i
+              className={`bi ${
+                auth.isAuthenticated ? "bi-box-arrow-right" : "bi-box-arrow-in-right"
+              }`}
+              style={{
+                fontSize: "1.5rem",
+                color: "white",
+                transition: "color 0.2s ease-in-out",
+              }}
+            />
+            <span
+              style={{
+                fontSize: "0.85rem",
+                color: "white",
+                marginTop: "0.25rem",
+              }}
             >
-              Log out
-            </button>
-          ) : (
-            <button
-              className="btn btn-outline-light"
-              onClick={() => void auth.signinRedirect()}
-            >
-              Log in
-            </button>
-          )}
+              {auth.isAuthenticated ? "Log out" : "Log in"}
+            </span>
+          </div>
         </div>
       </div>
     </nav>

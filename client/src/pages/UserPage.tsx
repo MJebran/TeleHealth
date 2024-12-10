@@ -43,7 +43,7 @@ const UserPage: React.FC = () => {
         username: newUser.username,
         password: newUser.password,
         email: newUser.email,
-        fullName: newUser.fullName || null,
+        fullName: newUser.fullName,
         gender: newUser.gender || null,
         roleId: newUser.roleId || null,
         isApproved: newUser.isApproved || false,

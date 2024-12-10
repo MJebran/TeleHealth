@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useCreateCase } from "../../hooks/useCaseHooks";
 import { useUserContext } from "../../context/UserContext";
 import { NewCasePayload } from "../../types/caseTypes";
@@ -8,7 +8,10 @@ const CaseForm: React.FC = () => {
   const { createNewCase, loading: caseLoading, error: caseError } = useCreateCase();
   const { addUser } = useUserContext(); // Add user function from UserContext
 
-  const [isExistingPatient, setIsExistingPatient] = useState(true);
+  const [isExistingPatient, setIsExistingPatient] = useState(
+    () => JSON.parse(localStorage.getItem("isExistingPatient") || "true")
+  );
+
   const [patientId, setPatientId] = useState<number | null>(null);
   const [newPatientName, setNewPatientName] = useState("");
   const [newPatientEmail, setNewPatientEmail] = useState("");
@@ -19,6 +22,10 @@ const CaseForm: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [creatingPatient, setCreatingPatient] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("isExistingPatient", JSON.stringify(isExistingPatient));
+  }, [isExistingPatient]);
 
   const resetForm = () => {
     setTitle("");
@@ -53,8 +60,6 @@ const CaseForm: React.FC = () => {
       setCreatingPatient(false);
     }
   };
-  
-  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -32,7 +32,7 @@ export const useUsers = () => {
       const payload: NewUserPayload = {
         username: user.username,
         email: user.email,
-        password: user.password || "", // Provide a default empty string if undefined
+        password: user.password || "",
         fullName: user.fullName || undefined,
         gender: user.gender || undefined,
         roleId: user.roleId || null,
@@ -41,16 +41,15 @@ export const useUsers = () => {
         hasAcceptedAgreement: user.hasAcceptedAgreement || false,
         agreementId: user.agreementId || null,
       };
-  
-      const newUser = await addUser(payload); // Ensure it returns the created user
+
+      const newUser = await addUser(payload);
       setUsers((prev) => [...prev, newUser]);
-      return newUser; // Return the new user with `id`
+      return newUser;
     } catch {
       setError("Failed to add user");
       return null;
     }
   };
-  
 
   const editUser = async (id: number, updatedUser: User) => {
     try {

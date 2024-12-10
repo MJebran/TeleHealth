@@ -5,11 +5,15 @@ const ApplyPage: React.FC = () => {
   return (
     <Container className="mt-5">
       <div className="text-center mb-5">
-        <h1 className="text-primary" style={{ fontFamily: "Mariupol, sans-serif" }}>
+        <h1
+          className="text-primary"
+          style={{ fontFamily: "Mariupol, sans-serif" }}
+        >
           Apply to Join TeleHealth
         </h1>
         <p className="text-muted">
-          Interested in becoming part of TeleHealth? Follow the instructions below to apply as a Doctor or Scribe Intern.
+          Interested in becoming part of TeleHealth? Follow the instructions
+          below to apply as a Doctor or Scribe Intern.
         </p>
       </div>
 
@@ -31,7 +35,8 @@ const ApplyPage: React.FC = () => {
             <Card.Body>
               <Card.Title className="text-primary">For Doctors</Card.Title>
               <Card.Text>
-                Join our team of healthcare professionals and help provide exceptional care.
+                Join our team of healthcare professionals and help provide
+                exceptional care.
                 <ul>
                   <li>✔ Collaborate with patients virtually</li>
                   <li>✔ Access our secure platform for consultations</li>
@@ -63,7 +68,9 @@ const ApplyPage: React.FC = () => {
             }
           >
             <Card.Body>
-              <Card.Title className="text-primary">For Scribe Interns</Card.Title>
+              <Card.Title className="text-primary">
+                For Scribe Interns
+              </Card.Title>
               <Card.Text>
                 Get hands-on experience and enhance your career in healthcare.
                 <ul>

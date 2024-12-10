@@ -19,8 +19,14 @@ export const createCase = async (newCase: NewCasePayload): Promise<Case> => {
   return response.data;
 };
 
-export const updateCase = async (id: number, updatedCase: NewCasePayload): Promise<Case> => {
-  const response = await axiosInstance.put<Case>(`${API_URL}/${id}`, updatedCase);
+export const updateCase = async (
+  id: number,
+  updatedCase: NewCasePayload
+): Promise<Case> => {
+  const response = await axiosInstance.put<Case>(
+    `${API_URL}/${id}`,
+    updatedCase
+  );
   return response.data;
 };
 
@@ -28,8 +34,14 @@ export const deleteCase = async (id: number): Promise<void> => {
   await axiosInstance.delete(`${API_URL}/${id}`);
 };
 
-export const updateCaseStatus = async (id: number, statusId: number): Promise<void> => {
-  const response = await axiosInstance.put(`${API_URL}/UpdateStatus/${id}`, statusId);
+export const updateCaseStatus = async (
+  id: number,
+  statusId: number
+): Promise<void> => {
+  const response = await axiosInstance.put(
+    `${API_URL}/UpdateStatus/${id}`,
+    statusId
+  );
   return response.data;
 };
 

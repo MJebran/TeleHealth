@@ -67,7 +67,9 @@ export const useCreateCase = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const createNewCase = async (newCasePayload: NewCasePayload): Promise<Case | null> => {
+  const createNewCase = async (
+    newCasePayload: NewCasePayload
+  ): Promise<Case | null> => {
     setLoading(true);
     setError(null);
     try {
@@ -90,7 +92,10 @@ export const useUpdateCase = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const updateExistingCase = async (id: number, updatedCase: NewCasePayload): Promise<boolean> => {
+  const updateExistingCase = async (
+    id: number,
+    updatedCase: NewCasePayload
+  ): Promise<boolean> => {
     setLoading(true);
     setError(null);
     try {
@@ -136,7 +141,10 @@ export const useUpdateCaseStatus = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const updateStatus = async (id: number, statusId: number): Promise<boolean> => {
+  const updateStatus = async (
+    id: number,
+    statusId: number
+  ): Promise<boolean> => {
     setLoading(true);
     setError(null);
     try {
@@ -176,7 +184,6 @@ export const useDoctorAcceptCase = () => {
 
   return { acceptCase, loading, error };
 };
-
 
 // Mark a case as completed
 export const useCompleteCase = () => {

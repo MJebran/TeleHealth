@@ -4,11 +4,11 @@ import { Case } from "../../types/caseTypes";
 import { useUserContext } from "../../context/UserContext";
 
 interface CaseListProps {
-  filteredCases: Case[]; // Ensure filteredCases is explicitly typed as an array of Case
+  filteredCases: Case[];
 }
 
 const CaseList: React.FC<CaseListProps> = ({ filteredCases }) => {
-  const { users } = useUserContext(); // Fetch users from UserContext
+  const { users } = useUserContext();
 
   return (
     <div>
@@ -18,7 +18,9 @@ const CaseList: React.FC<CaseListProps> = ({ filteredCases }) => {
         <ul className="list-group">
           {filteredCases.map((caseItem) => {
             // Ensure caseItem is explicitly typed
-            const patient = users.find((user) => user.id === caseItem.patientId);
+            const patient = users.find(
+              (user) => user.id === caseItem.patientId
+            );
 
             return (
               <li key={caseItem.id} className="list-group-item">

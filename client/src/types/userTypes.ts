@@ -29,4 +29,3 @@ export interface NewUserPayload {
   hasAcceptedAgreement: boolean; // Required for backend
   agreementId?: number | null;
 }
-

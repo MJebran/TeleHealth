@@ -8,10 +8,16 @@ const CaseDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { users } = useUserContext();
   const { refreshCases } = useCaseContext(); // Refresh case list
-  const { caseData: caseDetail, loading, error } = useFetchCaseById(
-    id ? parseInt(id) : null
-  );
-  const { deleteExistingCase, loading: deleteLoading, error: deleteError } = useDeleteCase();
+  const {
+    caseData: caseDetail,
+    loading,
+    error,
+  } = useFetchCaseById(id ? parseInt(id) : null);
+  const {
+    deleteExistingCase,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteCase();
   const navigate = useNavigate();
 
   const getUserName = (userId: number | null | undefined) => {
@@ -131,7 +137,10 @@ const CaseDetail: React.FC = () => {
           <Link to="/cases" className="btn btn-secondary me-2">
             Back to Cases
           </Link>
-          <Link to={`/cases/edit/${caseDetail.id}`} className="btn btn-primary text-light">
+          <Link
+            to={`/cases/edit/${caseDetail.id}`}
+            className="btn btn-primary text-light"
+          >
             Edit Case
           </Link>
           <button

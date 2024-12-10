@@ -6,12 +6,10 @@ import {
   updateCase,
   deleteCase,
   updateCaseStatus,
-  doctorAcceptCase ,
+  doctorAcceptCase,
   completeCase as completeCaseService,
 } from "../services/caseService";
 import { Case, NewCasePayload } from "../types/caseTypes";
-
-
 
 interface CaseContextProps {
   cases: Case[];
@@ -27,7 +25,9 @@ interface CaseContextProps {
 
 const CaseContext = createContext<CaseContextProps | undefined>(undefined);
 
-export const CaseProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CaseProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [cases, setCases] = useState<Case[]>([]);
 
   const refreshCases = async () => {
@@ -48,7 +48,6 @@ export const CaseProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  
   const updateCaseById = async (id: number, updatedCase: NewCasePayload) => {
     try {
       const updated = await updateCase(id, updatedCase);
@@ -88,7 +87,7 @@ export const CaseProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const acceptCase = async (id: number) => {
     try {
-      await doctorAcceptCase (id);
+      await doctorAcceptCase(id);
       refreshCases();
     } catch (error) {
       console.error("Failed to accept case:", error);

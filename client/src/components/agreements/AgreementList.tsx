@@ -8,7 +8,8 @@ interface AgreementListProps {
 }
 
 const AgreementList: React.FC<AgreementListProps> = ({ onEdit }) => {
-  const { agreements, removeAgreement, loading, error, addNewAgreement } = useAgreements();
+  const { agreements, removeAgreement, loading, error, addNewAgreement } =
+    useAgreements();
 
   const [selectedAgreement, setSelectedAgreement] = useState<{
     id: number;
@@ -17,9 +18,16 @@ const AgreementList: React.FC<AgreementListProps> = ({ onEdit }) => {
   } | null>(null);
 
   const [showAddModal, setShowAddModal] = useState(false);
-  const [newAgreement, setNewAgreement] = useState({ version: "", agreementText: "" });
+  const [newAgreement, setNewAgreement] = useState({
+    version: "",
+    agreementText: "",
+  });
 
-  const handleViewDetails = (agreement: { id: number; version: string; agreementText: string }) => {
+  const handleViewDetails = (agreement: {
+    id: number;
+    version: string;
+    agreementText: string;
+  }) => {
     setSelectedAgreement(agreement);
   };
 
@@ -81,7 +89,11 @@ const AgreementList: React.FC<AgreementListProps> = ({ onEdit }) => {
                   style={{ width: "80px" }}
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent triggering the agreement click
-                    onEdit(agreement.id, agreement.version, agreement.agreementText); // Pass agreement details to edit
+                    onEdit(
+                      agreement.id,
+                      agreement.version,
+                      agreement.agreementText
+                    ); // Pass agreement details to edit
                   }}
                 >
                   Edit
@@ -120,7 +132,9 @@ const AgreementList: React.FC<AgreementListProps> = ({ onEdit }) => {
           className="modal-dialog-scrollable"
         >
           <Modal.Header closeButton>
-            <Modal.Title className="text-truncate">{selectedAgreement.version}</Modal.Title>
+            <Modal.Title className="text-truncate">
+              {selectedAgreement.version}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p className="text-wrap">{selectedAgreement.agreementText}</p>
@@ -145,8 +159,6 @@ const AgreementList: React.FC<AgreementListProps> = ({ onEdit }) => {
                   handleDeleteAgreement(selectedAgreement.id);
                   handleCloseDetailsModal();
                 }}
-
-                
                 style={{ width: "80px" }}
               >
                 Delete
@@ -169,7 +181,10 @@ const AgreementList: React.FC<AgreementListProps> = ({ onEdit }) => {
                 type="text"
                 value={newAgreement.version}
                 onChange={(e) =>
-                  setNewAgreement((prev) => ({ ...prev, version: e.target.value }))
+                  setNewAgreement((prev) => ({
+                    ...prev,
+                    version: e.target.value,
+                  }))
                 }
               />
             </Form.Group>
@@ -180,17 +195,24 @@ const AgreementList: React.FC<AgreementListProps> = ({ onEdit }) => {
                 rows={3}
                 value={newAgreement.agreementText}
                 onChange={(e) =>
-                  setNewAgreement((prev) => ({ ...prev, agreementText: e.target.value }))
+                  setNewAgreement((prev) => ({
+                    ...prev,
+                    agreementText: e.target.value,
+                  }))
                 }
               />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary"  onClick={handleCloseAddModal}>
+          <Button variant="secondary" onClick={handleCloseAddModal}>
             Cancel
           </Button>
-          <Button variant="primary" className="text-white" onClick={handleAddAgreement}>
+          <Button
+            variant="primary"
+            className="text-white"
+            onClick={handleAddAgreement}
+          >
             Add
           </Button>
         </Modal.Footer>

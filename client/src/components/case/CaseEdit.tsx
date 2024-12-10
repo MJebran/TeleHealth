@@ -7,8 +7,16 @@ const CaseEdit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const { caseData, loading: fetchLoading, error: fetchError } = useFetchCaseById(id ? parseInt(id) : null);
-  const { updateExistingCase, loading: updateLoading, error: updateError } = useUpdateCase();
+  const {
+    caseData,
+    loading: fetchLoading,
+    error: fetchError,
+  } = useFetchCaseById(id ? parseInt(id) : null);
+  const {
+    updateExistingCase,
+    loading: updateLoading,
+    error: updateError,
+  } = useUpdateCase();
 
   const [formData, setFormData] = useState<NewCasePayload>({
     patientId: 0,
@@ -36,28 +44,34 @@ const CaseEdit: React.FC = () => {
     }
   }, [caseData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
 
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "statusId" || name === "patientId" || name === "scribeId" || name === "doctorId"
-        ? Number(value)
-        : value,
+      [name]:
+        name === "statusId" ||
+        name === "patientId" ||
+        name === "scribeId" ||
+        name === "doctorId"
+          ? Number(value)
+          : value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (!id) {
       alert("Case ID is missing.");
       return;
     }
-  
+
     try {
       const caseId = parseInt(id, 10);
-  
+
       // Ensure the payload includes the correct `id`
       const payload = {
         id: caseId, // Include the id in the payload
@@ -70,9 +84,9 @@ const CaseEdit: React.FC = () => {
         history: formData.history || undefined,
         statusId: formData.statusId || 1, // Default to 1 if undefined
       };
-  
+
       console.log("Payload being sent:", payload);
-  
+
       const success = await updateExistingCase(caseId, payload);
       if (success) {
         alert("Case updated successfully!");
@@ -84,8 +98,6 @@ const CaseEdit: React.FC = () => {
       console.error("Failed to update the case:", error);
     }
   };
-  
-  
 
   if (fetchLoading) {
     return (
@@ -98,7 +110,9 @@ const CaseEdit: React.FC = () => {
   if (fetchError) {
     return (
       <div className="text-center mt-5">
-        <h3 className="text-danger">Failed to fetch case details. Please try again later.</h3>
+        <h3 className="text-danger">
+          Failed to fetch case details. Please try again later.
+        </h3>
       </div>
     );
   }
@@ -229,7 +243,11 @@ const CaseEdit: React.FC = () => {
             </div>
 
             <div className="text-center">
-              <button type="submit" className="btn btn-primary text-white" disabled={updateLoading}>
+              <button
+                type="submit"
+                className="btn btn-primary text-white"
+                disabled={updateLoading}
+              >
                 Save Changes
               </button>
               <button
@@ -241,7 +259,9 @@ const CaseEdit: React.FC = () => {
                 Cancel
               </button>
             </div>
-            {updateError && <p className="text-danger text-center mt-3">{updateError}</p>}
+            {updateError && (
+              <p className="text-danger text-center mt-3">{updateError}</p>
+            )}
           </form>
         </div>
       </div>

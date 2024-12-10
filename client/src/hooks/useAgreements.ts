@@ -1,6 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Agreement } from '../types/agreement';
-import { getAgreements, addAgreement, editAgreement, deleteAgreement } from '../services/agreementService';
+import { useState, useEffect } from "react";
+import { Agreement } from "../types/agreement";
+import {
+  getAgreements,
+  addAgreement,
+  editAgreement,
+  deleteAgreement,
+} from "../services/agreementService";
 
 export const useAgreements = () => {
   const [agreements, setAgreements] = useState<Agreement[]>([]);
@@ -14,23 +19,26 @@ export const useAgreements = () => {
       setAgreements(data);
     } catch (err) {
       console.error(err); // Optional: Log error to the console
-      setError('Failed to fetch agreements.');
+      setError("Failed to fetch agreements.");
     } finally {
       setLoading(false);
     }
   };
 
-  const addNewAgreement = async (agreement: Omit<Agreement, 'id'>) => {
+  const addNewAgreement = async (agreement: Omit<Agreement, "id">) => {
     try {
       const newAgreement = await addAgreement(agreement);
       setAgreements([...agreements, newAgreement]);
     } catch (err) {
       console.error(err); // Optional: Log error to the console
-      setError('Failed to add agreement.');
+      setError("Failed to add agreement.");
     }
   };
 
-  const updateAgreement = async (id: number, updatedFields: Partial<Agreement>) => {
+  const updateAgreement = async (
+    id: number,
+    updatedFields: Partial<Agreement>
+  ) => {
     try {
       const updatedAgreement = await editAgreement(id, updatedFields);
       setAgreements(
@@ -40,7 +48,7 @@ export const useAgreements = () => {
       );
     } catch (err) {
       console.error(err); // Optional: Log error to the console
-      setError('Failed to update agreement.');
+      setError("Failed to update agreement.");
     }
   };
 
@@ -50,7 +58,7 @@ export const useAgreements = () => {
       setAgreements(agreements.filter((agreement) => agreement.id !== id));
     } catch (err) {
       console.error(err); // Optional: Log error to the console
-      setError('Failed to delete agreement.');
+      setError("Failed to delete agreement.");
     }
   };
 

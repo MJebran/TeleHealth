@@ -53,7 +53,6 @@ const RoleList: React.FC = () => {
           selectedRole
         );
 
-        // Check if the response is successful (optional as axios will throw on failure)
         if (response.status === 200) {
           toast.success("Role updated successfully!");
           handleCloseDetailsModal();

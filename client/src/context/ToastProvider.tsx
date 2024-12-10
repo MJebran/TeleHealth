@@ -4,7 +4,9 @@ import ToastList from "../components/ToastList";
 
 export const ToastContext = createContext<ToastContextType | null>(null);
 
-export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const addToast = (message: string, type: "success" | "error" | "warning") => {

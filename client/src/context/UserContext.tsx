@@ -13,7 +13,9 @@ interface UserContextProps {
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -66,8 +68,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return null; // Return null on failure
     }
   };
-  
-  
 
   const updateUser = async (id: number, updatedUser: User) => {
     try {

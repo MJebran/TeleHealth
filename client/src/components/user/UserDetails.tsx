@@ -57,7 +57,10 @@ const UserDetails: React.FC = () => {
 
   return (
     <Container className="mt-3">
-      <div className="card shadow-lg border-0" style={{ backgroundColor: "#E7F6FA" }}>
+      <div
+        className="card shadow-lg border-0"
+        style={{ backgroundColor: "#E7F6FA" }}
+      >
         <div
           className="card-header d-flex justify-content-between align-items-center text-white"
           style={{
@@ -83,7 +86,9 @@ const UserDetails: React.FC = () => {
                     type="text"
                     value={user.username}
                     disabled={!isEditing}
-                    onChange={(e) => setUser({ ...user, username: e.target.value })}
+                    onChange={(e) =>
+                      setUser({ ...user, username: e.target.value })
+                    }
                   />
                 </Form.Group>
               </Col>
@@ -94,7 +99,9 @@ const UserDetails: React.FC = () => {
                     type="email"
                     value={user.email}
                     disabled={!isEditing}
-                    onChange={(e) => setUser({ ...user, email: e.target.value })}
+                    onChange={(e) =>
+                      setUser({ ...user, email: e.target.value })
+                    }
                   />
                 </Form.Group>
               </Col>
@@ -107,7 +114,9 @@ const UserDetails: React.FC = () => {
                     type="text"
                     value={user.fullName || ""}
                     disabled={!isEditing}
-                    onChange={(e) => setUser({ ...user, fullName: e.target.value })}
+                    onChange={(e) =>
+                      setUser({ ...user, fullName: e.target.value })
+                    }
                   />
                 </Form.Group>
               </Col>
@@ -118,7 +127,9 @@ const UserDetails: React.FC = () => {
                     as="select"
                     value={user.gender || ""}
                     disabled={!isEditing}
-                    onChange={(e) => setUser({ ...user, gender: e.target.value })}
+                    onChange={(e) =>
+                      setUser({ ...user, gender: e.target.value })
+                    }
                   >
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
@@ -152,7 +163,9 @@ const UserDetails: React.FC = () => {
                     label="Is Approved"
                     checked={user.isApproved || false}
                     disabled={!isEditing}
-                    onChange={(e) => setUser({ ...user, isApproved: e.target.checked })}
+                    onChange={(e) =>
+                      setUser({ ...user, isApproved: e.target.checked })
+                    }
                   />
                 </Form.Group>
               </Col>
@@ -166,7 +179,9 @@ const UserDetails: React.FC = () => {
                     label="Verified"
                     checked={user.verified || false}
                     disabled={!isEditing}
-                    onChange={(e) => setUser({ ...user, verified: e.target.checked })}
+                    onChange={(e) =>
+                      setUser({ ...user, verified: e.target.checked })
+                    }
                   />
                 </Form.Group>
               </Col>
@@ -190,7 +205,10 @@ const UserDetails: React.FC = () => {
             </Row>
           </Form>
         </div>
-        <div className="card-footer d-flex justify-content-center gap-2" style={{ backgroundColor: "#F7F8FD" }}>
+        <div
+          className="card-footer d-flex justify-content-center gap-2"
+          style={{ backgroundColor: "#F7F8FD" }}
+        >
           {isEditing ? (
             <>
               <Button variant="success" onClick={handleSave}>

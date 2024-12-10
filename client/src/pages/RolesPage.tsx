@@ -7,7 +7,9 @@ const RolesPage: React.FC = () => (
       {" "}
       <div className="card-header bg-primary text-white text-center">
         {" "}
-        <h2 className="mb-0" style={{ fontFamily: "Mariupol, sans-serif" }}>Roles</h2>
+        <h2 className="mb-0" style={{ fontFamily: "Mariupol, sans-serif" }}>
+          Roles
+        </h2>
       </div>
       <div className="card-body bg-white">
         {" "}

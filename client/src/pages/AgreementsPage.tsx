@@ -8,17 +8,20 @@ const AgreementsPage: React.FC = () => {
 
   const handleEdit = (id: number) => {
     setEditingAgreement(id);
-    setShowForm(true); // Open the form modal when editing
+    setShowForm(true);
   };
 
   const handleCloseForm = () => {
     setEditingAgreement(null);
-    setShowForm(false); // Close the form modal
+    setShowForm(false);
   };
 
   return (
     <div className="container mt-5">
-      <div className="card shadow-lg border-0" style={{ backgroundColor: "#E7F6FA" }}>
+      <div
+        className="card shadow-lg border-0"
+        style={{ backgroundColor: "#E7F6FA" }}
+      >
         <div
           className="card-header text-white"
           style={{
@@ -27,7 +30,10 @@ const AgreementsPage: React.FC = () => {
             backgroundPosition: "center",
           }}
         >
-          <h2 className="text-center mb-0" style={{ fontFamily: "Mariupol, sans-serif" }}>
+          <h2
+            className="text-center mb-0"
+            style={{ fontFamily: "Mariupol, sans-serif" }}
+          >
             Agreements
           </h2>
         </div>

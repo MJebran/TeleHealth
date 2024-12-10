@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useCreateCase } from "../../hooks/useCaseHooks";
 import { useUserContext } from "../../context/UserContext";
 import { NewCasePayload } from "../../types/caseTypes";
-import { NewUserPayload } from "../../types/userTypes"; // Import user types
-
+import { NewUserPayload } from "../../types/userTypes"; 
 const CaseForm: React.FC = () => {
-  const { createNewCase, loading: caseLoading, error: caseError } = useCreateCase();
-  const { addUser } = useUserContext(); // Add user function from UserContext
+  const {
+    createNewCase,
+    loading: caseLoading,
+    error: caseError,
+  } = useCreateCase();
+  const { addUser } = useUserContext();
 
-  const [isExistingPatient, setIsExistingPatient] = useState(
-    () => JSON.parse(localStorage.getItem("isExistingPatient") || "true")
+  const [isExistingPatient, setIsExistingPatient] = useState(() =>
+    JSON.parse(localStorage.getItem("isExistingPatient") || "true")
   );
 
   const [patientId, setPatientId] = useState<number | null>(null);
@@ -24,7 +27,10 @@ const CaseForm: React.FC = () => {
   const [creatingPatient, setCreatingPatient] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("isExistingPatient", JSON.stringify(isExistingPatient));
+    localStorage.setItem(
+      "isExistingPatient",
+      JSON.stringify(isExistingPatient)
+    );
   }, [isExistingPatient]);
 
   const resetForm = () => {
@@ -49,7 +55,7 @@ const CaseForm: React.FC = () => {
         hasAcceptedAgreement: true, // Required by backend
         roleId: null, // Default role for patients
       };
-  
+
       const newUser = await addUser(newUserPayload); // Handle the response
       return newUser ? newUser.id : null; // Ensure it returns the user's ID
     } catch (error) {
@@ -105,7 +111,10 @@ const CaseForm: React.FC = () => {
 
   return (
     <div>
-      <button className="btn btn-primary mt-2 text-white" onClick={() => setShowModal(true)}>
+      <button
+        className="btn btn-primary mt-2 text-white"
+        onClick={() => setShowModal(true)}
+      >
         Create Case
       </button>
 
@@ -128,7 +137,9 @@ const CaseForm: React.FC = () => {
                 ></button>
               </div>
               <div className="modal-body">
-                {(caseLoading || creatingPatient) && <p className="text-muted">Processing...</p>}
+                {(caseLoading || creatingPatient) && (
+                  <p className="text-muted">Processing...</p>
+                )}
                 {caseError && <p className="text-danger">{caseError}</p>}
                 <form onSubmit={handleSubmit}>
                   {/* Toggle for Existing or New Patient */}
@@ -143,7 +154,10 @@ const CaseForm: React.FC = () => {
                         checked={isExistingPatient}
                         onChange={() => setIsExistingPatient(true)}
                       />
-                      <label className="form-check-label" htmlFor="existingPatient">
+                      <label
+                        className="form-check-label"
+                        htmlFor="existingPatient"
+                      >
                         Existing Patient
                       </label>
                     </div>
@@ -267,7 +281,11 @@ const CaseForm: React.FC = () => {
                     ></textarea>
                   </div>
 
-                  <button type="submit" className="btn btn-primary text-white" disabled={caseLoading || creatingPatient}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary text-white"
+                    disabled={caseLoading || creatingPatient}
+                  >
                     Create Case
                   </button>
                 </form>

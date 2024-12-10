@@ -38,10 +38,7 @@ const ForPatientsPage: React.FC = () => {
                 <li className="list-group-item border-0">
                   <span>
                     Call{" "}
-                    <a
-                      href="tel:+18005558353"
-                      className="text-primary fw-bold"
-                    >
+                    <a href="tel:+18005558353" className="text-primary fw-bold">
                       +1-800-555-TELE
                     </a>{" "}
                     to connect with a Scribe Intern.

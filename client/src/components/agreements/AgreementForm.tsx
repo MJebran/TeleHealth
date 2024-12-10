@@ -8,7 +8,11 @@ interface AgreementFormProps {
   onClose: () => void;
 }
 
-const AgreementForm: React.FC<AgreementFormProps> = ({ agreementId, show, onClose }) => {
+const AgreementForm: React.FC<AgreementFormProps> = ({
+  agreementId,
+  show,
+  onClose,
+}) => {
   const { addNewAgreement, updateAgreement, agreements } = useAgreements();
   const [version, setVersion] = useState("");
   const [agreementText, setAgreementText] = useState("");
@@ -39,7 +43,9 @@ const AgreementForm: React.FC<AgreementFormProps> = ({ agreementId, show, onClos
   return (
     <Modal show={show} onHide={onClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>{agreementId ? "Edit Agreement" : "Add New Agreement"}</Modal.Title>
+        <Modal.Title>
+          {agreementId ? "Edit Agreement" : "Add New Agreement"}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit}>
@@ -70,7 +76,11 @@ const AgreementForm: React.FC<AgreementFormProps> = ({ agreementId, show, onClos
             ></textarea>
           </div>
           <div className="d-flex justify-content-center">
-            <button type="button" className="btn btn-secondary me-2" onClick={onClose}>
+            <button
+              type="button"
+              className="btn btn-secondary me-2"
+              onClick={onClose}
+            >
               Cancel
             </button>
             <button type="submit" className="btn btn-success">
